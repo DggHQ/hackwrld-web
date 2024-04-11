@@ -1,0 +1,425 @@
+{% extends 'layout.html' %}
+
+{% set title = 'Home' %}
+
+{% block body %}
+
+<div class="container">
+    <p></p>
+    <div class="jumbotron">
+
+      <!-- <div class="hal-9000" style="margin-right: 10px;"></div>
+      
+      <span class="display-3">Command Center</span> -->
+
+      <div class="row">
+        <div class="col-sm">
+            <div class="hal-9000" style="margin-right: 10px;"></div>
+            <span class="display-3">Command Center</span>
+            <p></p>
+            <p class="lead">Your command center is up and running.</p>
+            <p>Command Center ID: <span id="ccid"></span></p>
+        </div>
+        <div class="col-sm">
+            <p>Eventlog:</p>
+           <div class="inner" style="height:150px; overflow-y: auto; background-color: #333; padding: 5px;"></div>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+
+     
+
+        <div class="row">
+            <div class="col-sm">
+                <h3>Upgrades:</h3>
+                <a href="#!" id="fwupgrade" class="btn btn-lg btn-primary btn-block">
+                <span class="fas fa-fire mr-2"></span>Upgrade Firewall
+                </a>
+                <p></p>
+                <a href="#!" id="scannerupgrade" class="btn btn-lg btn-primary btn-block">
+                    <span class="fas fa-signal mr-2"></span>Upgrade Scanner
+                    </a>
+                    <p></p>
+                <a href="#!" id="minerupgrade" class="btn btn-lg btn-primary btn-block">
+                    <span class="fab fa-bitcoin mr-2"></span>Upgrade Miner
+                    </a>
+                    <p></p>
+                <a href="#!" id="stealerupgrade" class="btn btn-lg btn-primary btn-block">
+                    <span class="fas fa-download mr-2"></span>Upgrade Stealer
+                    </a>
+                    <hr>
+                    <p></p>
+                    <h3>Actions:</h3>
+                    <a href="#!" id="initscan" class="btn btn-lg btn-primary btn-block">
+                        <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan
+                        <!-- lds-dual-ring -->
+                        </a>
+
+                        <p></p>
+                        <form>
+                            <div class="form-group">
+                              <label for="scantargets">Scanned targets:</label>
+                              <select  class="form-control" style="height:70px; overflow-y: auto;  overflow-x: auto; background-color: #333; padding: 20px;" id="scantargets">
+                                <!-- <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option> -->
+                              </select>
+                            </div>
+                          </form>
+
+
+
+            </div>
+            <div class="col-sm">
+                <h3>Coins:</h3>
+                <span id="funds" class="badge badge-primary"></span>
+                <hr>
+                <h3>Levels:</h3>
+                <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Firewall
+                    <span id="fw" class="badge badge-primary badge-pill">LEVEL</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Scanner
+                    <span id="sc" class="badge badge-primary badge-pill">LEVEL</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Miner
+                    <span id="mi" class="badge badge-primary badge-pill">LEVEL</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Stealer
+                    <span id="st" class="badge badge-primary badge-pill">LEVEL</span>
+                </li>
+                </ul>
+
+
+            </div>
+          </div>
+
+      
+
+    </div>    
+    
+  </div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 20px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.myevent {
+    background-color: blueviolet;
+    border-radius: 3px;
+    padding: 2px;
+}
+.errorevent {
+    background-color: darkred;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block js %}
+<script>
+    function uuidv4() {
+    return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+        (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+    );
+    }
+    // Create WebSocket connection.
+    const socket = new WebSocket("{{websocket_url}}");
+
+    // Connection opened
+    socket.addEventListener("open", (event) => {
+        console.log("Connected")
+    });
+    socket.addEventListener("message", (event) => {});
+    var i = 0;
+    socket.addEventListener("message", (event) => {
+      var uuid =  uuidv4()
+      var evt = JSON.parse(event.data)
+      userid = "{{ userid }}"
+      if (evt.id == userid) {
+        $('<p>').attr('id', uuid).attr('class', "myevent").text("BROADCAST | "+evt.data).appendTo(".inner")
+        $("#"+uuid).fadeOut(5000, function() {
+            $(this).remove();
+        });
+        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+      } else {
+        $('<p>').attr('id', uuid).text("BROADCAST | "+evt.data).appendTo(".inner")
+        $("#"+uuid).fadeOut(5000, function() {
+            $(this).remove();
+        });
+        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+      }
+
+   });
+    $(document).ready(function() {
+
+
+        // Load scans localstorage to multiselect
+        try {
+            const scans = JSON.parse(localStorage.getItem("scans"));
+            if (scans.length > 0) {
+                scans.forEach(scan => {
+                    text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Scanner: " + scan.stealer.level;
+                    $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
+                    $('#scantargets').multiselect( 'refresh' );
+                });
+            }  
+        } catch (error) {
+            console.log("scans is not in local storage")
+        }
+
+
+
+        // Handle scan start
+        $( "#initscan" ).on( "click", function(e) {
+             
+                // Upgrade
+                $.ajax({
+                url: '/scan/out',
+                beforeSend: function() {
+                    $( "#initscan").addClass("disabled");
+                    $( "#scanwait").removeClass("fas").removeClass("fa-signal");
+                    $( "#scanwait").addClass("lds-dual-ring");
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    $( "#initscan").addClass("disabled");
+                    $( "#scanwait").removeClass("fas").removeClass("fa-signal");
+                    $( "#scanwait").addClass("lds-dual-ring");
+                    $('#scantargets').empty();
+                    localStorage.setItem("scans", JSON.stringify([]));
+                    var uuid =  uuidv4()
+                    $('<p>').attr('id', uuid).text("Successfully scanned the network").appendTo(".inner")
+                    localStorage.setItem("scans", JSON.stringify(result.scans));
+
+
+                    result.scans.forEach(scan => {
+                        text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Scanner: " + scan.stealer.level;
+                        $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
+                    });
+
+
+                    $("#"+uuid).fadeOut(5000, function() {
+                        $(this).remove();
+                    });
+                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+
+                },
+                statusCode: {
+                    403: function(result) {
+                        $( "#initscan").removeClass("disabled");
+                        $( "#scanwait").removeClass("lds-dual-ring");
+                        $( "#scanwait").addClass("fas").addClass("fa-signal");
+                        var uuid =  uuidv4();
+                        var response = ($.parseJSON(result.responseText));
+                        $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
+                        $("#"+uuid).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    }
+                }
+            }).done(function(){
+                $( "#initscan").removeClass("disabled");
+                $( "#scanwait").removeClass("lds-dual-ring");
+                $( "#scanwait").addClass("fas").addClass("fa-signal");
+            });
+           
+        } );
+
+
+        // Handle firewall upgrade
+        $( "#fwupgrade" ).on( "click", function() {
+                // Upgrade
+                $.ajax({
+                url: '/upgrade/firewall',
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    var uuid =  uuidv4()
+                    $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level "+result.state.firewall.level).appendTo(".inner")
+                    $("#"+uuid).fadeOut(5000, function() {
+                        $(this).remove();
+                    });
+                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                },
+                error: function(result) {
+                    console.log("Could not connect to backend.")
+                },
+                statusCode: {
+                    403: function(result) {
+                        var uuid =  uuidv4();
+                        var response = ($.parseJSON(result.responseText));
+                        $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
+                        $("#"+uuid).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    }
+                }
+            });
+        } );
+
+
+        // Handle scanner upgrade
+        $( "#scannerupgrade" ).on( "click", function() {
+                // Upgrade
+                $.ajax({
+                url: '/upgrade/scanner',
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    var uuid =  uuidv4()
+                    $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level "+result.state.scanner.level).appendTo(".inner")
+                    $("#"+uuid).fadeOut(5000, function() {
+                        $(this).remove();
+                    });
+                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                },
+                error: function(result) {
+                    console.log("Could not connect to backend.")
+                },
+                statusCode: {
+                    403: function(result) {
+                        var uuid =  uuidv4();
+                        var response = ($.parseJSON(result.responseText));
+                        $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
+                        $("#"+uuid).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    }
+                }
+            });
+        } );
+
+        // Handle miner upgrade
+        $( "#minerupgrade" ).on( "click", function() {
+                // Upgrade
+                $.ajax({
+                url: '/upgrade/miner',
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    var uuid =  uuidv4()
+                    $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level "+result.state.cryptoMiner.level).appendTo(".inner")
+                    $("#"+uuid).fadeOut(5000, function() {
+                        $(this).remove();
+                    });
+                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                },
+                error: function(result) {
+                    console.log("Could not connect to backend.")
+                },
+                statusCode: {
+                    403: function(result) {
+                        var uuid =  uuidv4();
+                        var response = ($.parseJSON(result.responseText));
+                        $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
+                        $("#"+uuid).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    }
+                }
+            });
+        } );
+
+        // Handle miner upgrade
+        $( "#stealerupgrade" ).on( "click", function() {
+                // Upgrade
+                $.ajax({
+                url: '/upgrade/stealer',
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    var uuid =  uuidv4()
+                    $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level "+result.state.stealer.level).appendTo(".inner")
+                    $("#"+uuid).fadeOut(5000, function() {
+                        $(this).remove();
+                    });
+                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                },
+                error: function(result) {
+                    console.log("Could not connect to backend.")
+                },
+                statusCode: {
+                    403: function(result) {
+                        var uuid =  uuidv4();
+                        var response = ($.parseJSON(result.responseText));
+                        $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
+                        $("#"+uuid).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    }
+                }
+            });
+        } );
+
+
+
+
+      setInterval(() => {
+        $.ajax({
+            url: '/state',
+            type: 'GET',
+            dataType: 'json',
+            success: function(result) {
+              $('#fw').text(result.state.firewall.level)
+              $('#sc').text(result.state.scanner.level)
+              $('#mi').text(result.state.cryptoMiner.level)
+              $('#st').text(result.state.stealer.level)
+              $('#ccid').text(result.state.id)
+              $('#funds').text(result.state.funds.amount)
+            },
+            error: function(result) {
+              console.log("Could not connect to backend.")
+            }
+        });
+
+
+      }, 1000);
+    });
+  </script>
+{% endblock %}
