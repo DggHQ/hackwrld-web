@@ -282,7 +282,7 @@
 
 
                     result.scans.forEach(scan => {
-                        text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Scanner: " + scan.stealer.level;
+                        text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level;
                         $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                     });
 
