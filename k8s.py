@@ -6,10 +6,11 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
     # Configureate Pod template container
     image_pull_secret = [client.V1LocalObjectReference(name="regcred")]
     container = client.V1Container(
-        name=deployment_name,    
-        image="harbor.0x01.host/dgg/voteworker",
+        name="worker",    
+        image="ghcr.io/dgghq/hackwrld-client:main",
         env=[client.V1EnvVar(name="ID", value=requestor),
              client.V1EnvVar(name="NATS_HOST", value=nats_host),
+             client.V1EnvVar(name="PORT", value="80"),
              client.V1EnvVar(name="ETCD_ENDPOINTS", value=etcd_endpoints),
              client.V1EnvVar(name="GIN_MODE", value="release")],
         ports=[client.V1ContainerPort(container_port=80)],
@@ -21,8 +22,6 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
     # Create and configure a spec section
     template = client.V1PodTemplateSpec(
         metadata=client.V1ObjectMeta(labels={
-                "app": deployment_name,
-                "uuid": deployment_name,
                 "id": requestor,
                 "app": "hackwrld-client",
                 "creationDate": str(int(time.time()))
@@ -41,12 +40,10 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
     deployment = client.V1Deployment(
         api_version="apps/v1",
         kind="Deployment",
-        metadata=client.V1ObjectMeta(name=deployment_name, labels={
+        metadata=client.V1ObjectMeta(name=f"{requestor}-commandcenter", labels={
             "id": requestor,
             "app": deployment_name,
-            "hackwrld-client": "true",
-            "name": f"{requestor}-commandcenter",
-            "uuid": deployment_name
+            "hackwrld-component": "client"
         }),
         spec=spec,
     )

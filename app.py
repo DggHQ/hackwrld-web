@@ -102,20 +102,19 @@ def create_cc(userID):
         return json.dumps({"success": "already exists"}), 200
     
     # Create deployment if no ips have been returned
-    uuid_value = str(uuid4())
     config.load_config()
     deployment = create_deployment_object(
         requestor=userID,
         nats_host=app_nats_host,
         etcd_endpoints=app_etcs_endpoints,
-        deployment_name=uuid_value
+        deployment_name=f"{userID}-commandcenter"
     )
     v1 = client.AppsV1Api()
     v1.create_namespaced_deployment(
         body=deployment, namespace=app_namespace
     )
     deploy, statuscode  = v1.read_namespaced_deployment_with_http_info(
-        name=uuid_value,
+        name=f"{userID}-commandcenter",
         namespace=app_namespace
     )
     print(statuscode)
