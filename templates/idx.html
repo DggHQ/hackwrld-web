@@ -212,7 +212,7 @@
              // Upgrade
              $.ajax({
              url: '/steal',
-             data: {"targetid": targetid},
+             data: JSON.stringify({"targetid": targetid}),
              contentType: 'application/json',
              beforeSend: function() {
                  $( "#stealcoins").addClass("disabled");
