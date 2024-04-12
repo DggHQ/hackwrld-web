@@ -8,6 +8,7 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
     container = client.V1Container(
         name="worker",    
         image="ghcr.io/dgghq/hackwrld-client:main",
+        image_pull_policy="Always",
         env=[client.V1EnvVar(name="ID", value=requestor),
              client.V1EnvVar(name="NATS_HOST", value=nats_host),
              client.V1EnvVar(name="PORT", value="80"),
