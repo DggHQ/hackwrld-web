@@ -218,6 +218,25 @@ def init_scan():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+@app.route("/steal", methods=["POST"])
+@login_required
+def init_steal():
+    in_data = request.get_json()
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/steal"
+    data = requests.post(
+        url=commandCenterIP,
+        json=in_data
+        )
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
 
 @app.route("/cc/<userID>/home")
 @login_required

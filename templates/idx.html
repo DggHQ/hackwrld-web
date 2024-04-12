@@ -61,15 +61,14 @@
                         <form>
                             <div class="form-group">
                               <label for="scantargets">Scanned targets:</label>
-                              <select  class="form-control" style="height:70px; overflow-y: auto;  overflow-x: auto; background-color: #333; padding: 20px;" id="scantargets">
-                                <!-- <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option> -->
+                              <select name="tgt_select" class="form-control" style="height:70px; overflow-y: auto;  overflow-x: auto; background-color: #333; padding: 20px;" id="scantargets">
                               </select>
                             </div>
-                          </form>
+                        </form>
+                          <p></p>
+                          <a href="#!" id="stealcoins" class="btn btn-lg btn-primary btn-block">
+                            <span id="stealwait" class="fas fa-hand-holding-usd mr-2"></span>Steal coins
+                            </a>
 
 
 
@@ -207,7 +206,56 @@
             console.log("scans is not in local storage")
         }
 
+        // Handle scan start
+        $( "#stealcoins" ).on( "click", function(e) {
+            var targetid = $('#scantargets').find(":selected").val();
+             // Upgrade
+             $.ajax({
+             url: '/steal',
+             data: {"targetid": targetid},
+             beforeSend: function() {
+                 $( "#stealcoins").addClass("disabled");
+                 $( "#stealwait").removeClass("fas").removeClass("fa-hand-holding-usd");
+                 $( "#stealwait").addClass("lds-dual-ring");
+             },
+             type: 'POST',
+             dataType: 'json',
+             
+             success: function(result) {
+                 $( "#stealcoins").addClass("disabled");
+                 $( "#stealwait").removeClass("fas").removeClass("fa-hand-holding-usd");
+                 $( "#stealwait").addClass("lds-dual-ring");
+                var uuid =  uuidv4();
+                result.reply.gainedCoins
 
+                $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole "+result.reply.gainedCoins+ "coins").appendTo(".inner")
+                    $("#"+uuid).fadeOut(5000, function() {
+                        $(this).remove();
+                    });
+                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+
+             },
+             statusCode: {
+                 403: function(result) {
+                     $( "#stealcoins").removeClass("disabled");
+                     $( "#stealwait").removeClass("lds-dual-ring");
+                     $( "#stealwait").addClass("fas").addClass("fa-hand-holding-usd");
+                     var uuid =  uuidv4();
+                     var response = ($.parseJSON(result.responseText));
+                     $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
+                     $("#"+uuid).fadeOut(5000, function() {
+                         $(this).remove();
+                     });
+                     $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                 }
+             }
+         }).done(function(){
+             $( "#stealcoins").removeClass("disabled");
+             $( "#stealwait").removeClass("lds-dual-ring");
+             $( "#stealwait").addClass("fas").addClass("fa-hand-holding-usd");
+         });
+        
+     } );
 
         // Handle scan start
         $( "#initscan" ).on( "click", function(e) {
