@@ -213,6 +213,7 @@
              $.ajax({
              url: '/steal',
              data: {"targetid": targetid},
+             contentType: 'application/json',
              beforeSend: function() {
                  $( "#stealcoins").addClass("disabled");
                  $( "#stealwait").removeClass("fas").removeClass("fa-hand-holding-usd");
@@ -220,7 +221,6 @@
              },
              type: 'POST',
              dataType: 'json',
-             
              success: function(result) {
                  $( "#stealcoins").addClass("disabled");
                  $( "#stealwait").removeClass("fas").removeClass("fa-hand-holding-usd");
