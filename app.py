@@ -113,15 +113,7 @@ def create_cc(userID):
     v1.create_namespaced_deployment(
         body=deployment, namespace=app_namespace
     )
-    deploy, statuscode  = v1.read_namespaced_deployment_with_http_info(
-        name=f"{userID}-commandcenter",
-        namespace=app_namespace
-    )
-    print(statuscode)
-    if statuscode != "200":
-        return json.dumps({"error": "not_ready"}), 403
-    else:
-        return json.dumps({"success": "ready"}), 200
+    return json.dumps({"success": "created_deployment"}), 200
 
 @app.route("/cc/<userID>/prepare")
 @login_required

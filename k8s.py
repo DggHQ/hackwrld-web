@@ -15,7 +15,7 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
              client.V1EnvVar(name="GIN_MODE", value="release")],
         ports=[client.V1ContainerPort(container_port=80)],
         resources=client.V1ResourceRequirements(
-            limits={"memory": "10Mi"},
+            limits={"memory": "50Mi"},
         ),
     )
 
