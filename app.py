@@ -105,6 +105,7 @@ def create_cc(userID):
     uuid_value = str(uuid4())
     config.load_config()
     deployment = create_deployment_object(
+        requestor=userID,
         nats_host=app_nats_host,
         etcd_endpoints=app_etcs_endpoints,
         deployment_name=uuid_value
