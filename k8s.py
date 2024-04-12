@@ -23,7 +23,7 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
     template = client.V1PodTemplateSpec(
         metadata=client.V1ObjectMeta(labels={
                 "id": requestor,
-                "app": "hackwrld-client",
+                "app": deployment_name,
                 "creationDate": str(int(time.time()))
             },
         ),
