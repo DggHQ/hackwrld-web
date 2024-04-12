@@ -43,8 +43,9 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
         kind="Deployment",
         metadata=client.V1ObjectMeta(name=deployment_name, labels={
             "id": requestor,
-            "app": "hackwrld-client",
-            "name": deployment_name,
+            "app": deployment_name,
+            "hackwrld-client": "true",
+            "name": f"{requestor}-commandcenter",
             "uuid": deployment_name
         }),
         spec=spec,
