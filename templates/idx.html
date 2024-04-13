@@ -35,25 +35,25 @@
             <div class="col-sm">
                 <h3>Upgrades:</h3>
                 <a href="#!" id="fwupgrade" class="btn btn-lg btn-primary btn-block">
-                <span class="fas fa-fire mr-2"></span>Upgrade Firewall
+                <span class="fas fa-fire mr-2"></span>Upgrade Firewall <span id="fwcost"></span>
                 </a>
                 <p></p>
                 <a href="#!" id="scannerupgrade" class="btn btn-lg btn-primary btn-block">
-                    <span class="fas fa-signal mr-2"></span>Upgrade Scanner
+                    <span class="fas fa-signal mr-2"></span>Upgrade Scanner <span id="sccost"></span>
                     </a>
                     <p></p>
                 <a href="#!" id="minerupgrade" class="btn btn-lg btn-primary btn-block">
-                    <span class="fab fa-bitcoin mr-2"></span>Upgrade Miner
+                    <span class="fab fa-bitcoin mr-2"></span>Upgrade Miner <span id="micost"></span>
                     </a>
                     <p></p>
                 <a href="#!" id="stealerupgrade" class="btn btn-lg btn-primary btn-block">
-                    <span class="fas fa-download mr-2"></span>Upgrade Stealer
+                    <span class="fas fa-download mr-2"></span>Upgrade Stealer <span id="stcost"></span>
                     </a>
                     <hr>
                     <p></p>
                     <h3>Actions:</h3>
                     <a href="#!" id="initscan" class="btn btn-lg btn-primary btn-block">
-                        <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan
+                        <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan <span id="scanningcost"></span>
                         <!-- lds-dual-ring -->
                         </a>
 
@@ -67,7 +67,7 @@
                         </form>
                           <p></p>
                           <a href="#!" id="stealcoins" class="btn btn-lg btn-primary btn-block">
-                            <span id="stealwait" class="fas fa-hand-holding-usd mr-2"></span>Steal coins
+                            <span id="stealwait" class="fas fa-hand-holding-usd mr-2"></span>Steal coins <span id="stealingcost"></span>
                             </a>
 
 
@@ -459,6 +459,12 @@
               $('#st').text(result.state.stealer.level)
               $('#ccid').text(result.state.id)
               $('#funds').text(result.state.funds.amount)
+              $("#fwcost").text("("+(result.state.firewall.level * 0.1)+")")
+              $("#sccost").text("("+(result.state.scanner.level * 0.1)+")")
+              $("#micost").text("("+(result.state.cryptoMiner.level * 0.1)+")")
+              $("#stcost").text("("+(result.state.stealer.level * 0.1)+")")
+              $("#stealingcost").text("("+(result.state.stealer.level * 0.1)+")")
+              $("#scanningcost").text("("+(result.state.scanner.level * 0.1)+")")
             },
             error: function(result) {
               console.log("Could not connect to backend.")
