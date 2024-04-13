@@ -45,6 +45,11 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+@app.route("/")
+def root():
+    if 'userdata' in session:
+        return redirect(url_for("prepare", userID=str(session["userdata"]["userId"])))
+    return redirect(url_for("auth"))
 
 @app.route("/auth")
 def auth():
