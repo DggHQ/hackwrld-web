@@ -459,12 +459,12 @@
               $('#st').text(result.state.stealer.level)
               $('#ccid').text(result.state.id)
               $('#funds').text(result.state.funds.amount)
-              $("#fwcost").text("("+(result.state.firewall.level * 0.1)+")")
-              $("#sccost").text("("+(result.state.scanner.level * 0.1)+")")
-              $("#micost").text("("+(result.state.cryptoMiner.level * 0.1)+")")
-              $("#stcost").text("("+(result.state.stealer.level * 0.1)+")")
-              $("#stealingcost").text("("+(result.state.stealer.level * 0.1)+")")
-              $("#scanningcost").text("("+(result.state.scanner.level * 0.1)+")")
+              $("#fwcost").text("("+(result.state.firewall.level * 0.1).toFixed(1)+")")
+              $("#sccost").text("("+(result.state.scanner.level * 0.1).toFixed(1)+")")
+              $("#micost").text("("+(result.state.cryptoMiner.level * 0.1).toFixed(1)+")")
+              $("#stcost").text("("+(result.state.stealer.level * 0.1).toFixed(1)+")")
+              $("#stealingcost").text("("+(result.state.stealer.level * 0.1).toFixed(1)+")")
+              $("#scanningcost").text("("+(result.state.scanner.level * 0.1).toFixed(1)+")")
             },
             error: function(result) {
               console.log("Could not connect to backend.")
