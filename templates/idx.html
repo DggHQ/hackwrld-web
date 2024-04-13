@@ -227,7 +227,7 @@
                 var uuid =  uuidv4();
                 result.reply.gainedCoins
 
-                $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole "+result.reply.gainedCoins+ "coins").appendTo(".inner")
+                $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole "+result.reply.gainedCoins+ " coins").appendTo(".inner")
                     $("#"+uuid).fadeOut(5000, function() {
                         $(this).remove();
                     });
