@@ -198,7 +198,7 @@
             const scans = JSON.parse(localStorage.getItem("scans"));
             if (scans.length > 0) {
                 scans.forEach(scan => {
-                    text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level;
+                    text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                     $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                 });
             }  
@@ -281,7 +281,7 @@
 
 
                     result.scans.forEach(scan => {
-                        text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level;
+                        text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                         $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                     });
 
