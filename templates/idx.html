@@ -225,7 +225,6 @@
                  $( "#stealwait").removeClass("fas").removeClass("fa-hand-holding-usd");
                  $( "#stealwait").addClass("lds-dual-ring");
                 var uuid =  uuidv4();
-                result.reply.gainedCoins
 
                 $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole "+result.reply.gainedCoins+ " coins").appendTo(".inner")
                     $("#"+uuid).fadeOut(5000, function() {
