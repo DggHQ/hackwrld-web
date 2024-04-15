@@ -191,6 +191,15 @@
 
    });
     $(document).ready(function() {
+        $( "#scantargets" ).on( "change", function() {
+            $( "#stealcoins").addClass("disabled");
+            var availableTargets = $('#scantargets').children('option').length;
+            if (availableTargets > 0) {
+                $( "#stealcoins").removeClass("disabled");
+            } else {
+                $( "#stealcoins").addClass("disabled");
+            }
+        } );
 
 
         // Load scans localstorage to multiselect
@@ -201,8 +210,10 @@
                     text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                     $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                 });
+                $('#scantargets').trigger( "change" );
             }  
         } catch (error) {
+            $('#scantargets').trigger( "change" );
             console.log("scans is not in local storage")
         }
 
@@ -307,6 +318,7 @@
                     }
                 }
             }).done(function(){
+                $('#scantargets').trigger( "change" );
                 $( "#initscan").removeClass("disabled");
                 $( "#scanwait").removeClass("lds-dual-ring");
                 $( "#scanwait").addClass("fas").addClass("fa-signal");
