@@ -25,6 +25,7 @@ def create_deployment_object(requestor, nats_host, etcd_endpoints, deployment_na
         metadata=client.V1ObjectMeta(labels={
                 "id": requestor,
                 "app": deployment_name,
+                "hackwrld": "player",
                 "creationDate": str(int(time.time()))
             },
         ),
