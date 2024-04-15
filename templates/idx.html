@@ -19,6 +19,7 @@
             <p></p>
             <p class="lead">Your command center is up and running.</p>
             <p>Command Center ID: <span id="ccid"></span></p>
+            <p id="cooldown"></p>
         </div>
         <div class="col-sm">
             <p>Eventlog:</p>
@@ -464,6 +465,11 @@
               $("#stcost").text("("+(result.state.stealer.level * 0.1).toFixed(1)+")")
               $("#stealingcost").text("("+(result.state.stealer.level * 0.1).toFixed(1)+")")
               $("#scanningcost").text("("+(result.state.scanner.level * 0.1).toFixed(1)+")")
+              if (result.state.cooldown.time > 0) {
+                $('#cooldown').text("Cannot be attacked for "+ result.state.cooldown.time+ " seconds.")
+              } else {
+                $('#cooldown').text("")
+              }
             },
             error: function(result) {
               console.log("Could not connect to backend.")
