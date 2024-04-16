@@ -62,7 +62,7 @@
                         <form>
                             <div class="form-group">
                               <label for="scantargets">Scanned targets:</label>
-                              <select name="tgt_select" class="form-control js-basic-single" style="color: black; height:70px; overflow-y: auto;  overflow-x: auto; background-color: #333; padding: 20px;" id="scantargets">
+                              <select name="tgt_select" class="form-control js-basic-single" id="scantargets">
                               </select>
                             </div>
                         </form>
@@ -151,6 +151,15 @@
     padding: 2px;
 }
 
+.select2 {
+    border-radius: 5px;
+}
+
+.select2-results__option {
+    color: black;
+    padding: 10px;
+}
+
 
 </style>
 {% endblock %}
@@ -193,7 +202,9 @@
 
    });
     $(document).ready(function() {
-        $('.js-basic-single').select2();
+        $('.js-basic-single').select2({
+            color: "resolve"
+        });
 
         $( "#scantargets" ).on( "change", function() {
             $( "#stealcoins").addClass("disabled");
