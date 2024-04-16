@@ -110,6 +110,7 @@ def create_cc(userID):
     config.load_config()
     deployment = create_deployment_object(
         requestor=userID,
+        nick=str(session["userdata"]["nick"]),
         nats_host=app_nats_host,
         etcd_endpoints=app_etcs_endpoints,
         deployment_name=f"{userID}-commandcenter"
@@ -248,7 +249,7 @@ def init_steal():
 def home(userID):
     if str(session["userdata"]["userId"]) != userID:
         return "Error: Unauthorized User", 403
-    return render_template("idx.html", userid=userID, websocket_url=app_websocket_url)
+    return render_template("idx.html", userid=userID, nick=str(session["userdata"]["nick"]), websocket_url=app_websocket_url)
 
 
 if __name__ == '__main__':

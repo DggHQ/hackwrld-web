@@ -17,7 +17,7 @@
             <div class="hal-9000" style="margin-right: 10px;"></div>
             <span class="display-3">Command Center</span>
             <p></p>
-            <p class="lead">Your command center is up and running.</p>
+            <p class="lead">Your command center is up and running, {{nick}}.</p>
             <p>Command Center ID: <span id="ccid"></span></p>
             <p id="cooldown"></p>
         </div>
@@ -207,7 +207,7 @@
             const scans = JSON.parse(localStorage.getItem("scans"));
             if (scans.length > 0) {
                 scans.forEach(scan => {
-                    text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
+                    text = "[" + scan.nick + "] | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                     $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                 });
                 $('#scantargets').trigger( "change" );
@@ -292,7 +292,7 @@
 
 
                     result.scans.forEach(scan => {
-                        text = "ID:" + scan.id + " | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
+                        text = "[" + scan.nick + "] | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                         $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                     });
 
