@@ -156,7 +156,6 @@
 {% endblock %}
 
 {% block js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script>
     function uuidv4() {
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
@@ -208,7 +207,7 @@
             const scans = JSON.parse(localStorage.getItem("scans"));
             if (scans.length > 0) {
                 scans.forEach(scan => {
-                    text = "[" + scan.nick + "] | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + moment.utc(scan.cooldown.time*1000).format('HH:mm:ss');
+                    text = "[" + scan.nick + "] | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                     $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                 });
                 $('#scantargets').trigger( "change" );
@@ -293,7 +292,7 @@
 
 
                     result.scans.forEach(scan => {
-                        text = "[" + scan.nick + "] | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + moment.utc(scan.cooldown.time*1000).format('HH:mm:ss');
+                        text = "[" + scan.nick + "] | Funds: " + scan.funds.amount + " | Firewall: " + scan.firewall.level + " | Scanner: " + scan.scanner.level + " | Miner: " + scan.cryptoMiner.level + " | Stealer: " + scan.stealer.level + " | Cooldown: " + scan.cooldown.time;
                         $('#scantargets').append("<option value=\"" + scan.id + "\">" +  text  + "</option>");
                     });
 
