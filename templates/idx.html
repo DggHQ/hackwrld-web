@@ -62,7 +62,7 @@
                         <form>
                             <div class="form-group">
                               <label for="scantargets">Scanned targets:</label>
-                              <select name="tgt_select" class="form-control" style="height:70px; overflow-y: auto;  overflow-x: auto; background-color: #333; padding: 20px;" id="scantargets">
+                              <select name="tgt_select" class="form-control js-basic-single" style="height:70px; overflow-y: auto;  overflow-x: auto; background-color: #333; padding: 20px;" id="scantargets">
                               </select>
                             </div>
                         </form>
@@ -157,6 +157,7 @@
 
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     function uuidv4() {
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
@@ -192,6 +193,8 @@
 
    });
     $(document).ready(function() {
+        $('.js-basic-single').select2();
+
         $( "#scantargets" ).on( "change", function() {
             $( "#stealcoins").addClass("disabled");
             var availableTargets = $('#scantargets').children('option').length;
