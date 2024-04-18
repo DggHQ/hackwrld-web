@@ -73,9 +73,7 @@ def auth():
     code_challenge = b64_encode(code_verifier, hashed_secret)
     state = str(uuid.uuid4())
     CHALLENGES[state] = code_verifier
-    print(f"state: {state}, verifier: {CHALLENGES[state]}")
     url = f"https://www.destiny.gg/oauth/authorize?response_type=code&client_id={app_id}&redirect_uri={callback_url}&state={state}&code_challenge={code_challenge}"
-    print(f"callback url: {url}")
     return redirect(url, code=302)
 
 
