@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import Flask, request, redirect, url_for, session, render_template
+from flask import Flask, request, redirect, url_for, session, render_template, abort
 from functools import wraps
 import requests
 import urllib.parse
@@ -23,12 +23,22 @@ app_websocket_url = os.getenv("WS_URL", "ws://localhost:8080/ws")
 app_namespace = os.getenv("NAMESPACE", "hackwrld")
 app_nats_host = os.getenv("NATS_HOST")
 app_etcs_endpoints = os.getenv("ETCD_ENDPOINTS")
+app_maintenance = os.getenv("MAINTENANCE", "disabled")
 
 
 CHALLENGES = {}
 app_id = app_id_setting
 secret = app_secret_setting
 callback_url = urllib.parse.quote(callback_url_setting)
+
+@app.before_request
+def check_under_maintenance():
+    if app_maintenance == "enabled":  #this flag can be anything, read from file,db or anything
+        abort(503) 
+
+@app.errorhandler(503)
+def error_503(error):
+    return render_template("maintenance.html") 
 
 
 def b64_encode(code_verifier, hashed_secret):
