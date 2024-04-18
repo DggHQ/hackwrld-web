@@ -21,3 +21,14 @@
         <p>&mdash; theneedyguy</p>
     </div>
 </article>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script>
+  var currentLocation = window.location.pathname;
+  var split = currentLocation.split("/")
+  split[3] = "prepare"
+  var newPath = split.join("/")
+
+  setInterval( function(){
+    window.location.href = newPath;
+  } , 5000 );
+</script>
