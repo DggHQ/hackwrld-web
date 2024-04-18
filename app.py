@@ -11,6 +11,7 @@ import random
 import json
 import os
 from datetime import timedelta
+import redis
 
 from k8s import *
 
@@ -26,12 +27,17 @@ app_namespace = os.getenv("NAMESPACE", "hackwrld")
 app_nats_host = os.getenv("NATS_HOST")
 app_etcs_endpoints = os.getenv("ETCD_ENDPOINTS")
 app_maintenance = os.getenv("MAINTENANCE", "disabled")
+app_valkey_host = os.getenv("VALKEY_HOST", "valkey.hackwrld.svc")
 
 
-CHALLENGES = {}
+
+
+
+#CHALLENGES = {}
 app_id = app_id_setting
 secret = app_secret_setting
 callback_url = urllib.parse.quote(callback_url_setting)
+r = redis.Redis(host=app_valkey_host, port=6379, decode_responses=True)
 
 @app.before_request
 def check_under_maintenance():
@@ -72,7 +78,8 @@ def auth():
         k=43))
     code_challenge = b64_encode(code_verifier, hashed_secret)
     state = str(uuid.uuid4())
-    CHALLENGES[state] = code_verifier
+    #CHALLENGES[state] = code_verifier
+    r.set(state, code_verifier)
     url = f"https://www.destiny.gg/oauth/authorize?response_type=code&client_id={app_id}&redirect_uri={callback_url}&state={state}&code_challenge={code_challenge}"
     return redirect(url, code=302)
 
@@ -88,7 +95,7 @@ def logout():
 def callback():
     code = request.args.get("code")
     state = request.args.get("state")
-    code_verifier = CHALLENGES[state]
+    code_verifier = r.get(state) #CHALLENGES[state]
     auth_url = f"https://www.destiny.gg/oauth/token?grant_type=authorization_code&code={code}&client_id={app_id}&redirect_uri={callback_url}&code_verifier={code_verifier}"
     auth_response = requests.get(auth_url)
     data = auth_response.json()
@@ -98,6 +105,7 @@ def callback():
     userdata = user_response.json()
     session["userdata"] = userdata
     session.permanent = True
+    r.delete(state)
     return redirect(url_for('prepare', userID=userdata["userId"]))
 
 
