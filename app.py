@@ -10,11 +10,13 @@ import string
 import random
 import json
 import os
+from datetime import timedelta
 
 from k8s import *
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "supersecretkey")
+app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=1440)
 
 callback_url_setting = os.getenv("CALLBACK_URL", "http://localhost:8888/callback")
 app_id_setting = os.getenv("APP_ID")
@@ -34,7 +36,8 @@ callback_url = urllib.parse.quote(callback_url_setting)
 @app.before_request
 def check_under_maintenance():
     if app_maintenance == "enabled":  #this flag can be anything, read from file,db or anything
-        abort(503) 
+        abort(503)
+    
 
 @app.errorhandler(503)
 def error_503(error):
@@ -96,6 +99,7 @@ def callback():
     user_response = requests.get(user_data_url)
     userdata = user_response.json()
     session["userdata"] = userdata
+    session.permanent = True
     return redirect(url_for('prepare', userID=userdata["userId"]))
 
 
