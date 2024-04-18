@@ -105,6 +105,7 @@ def callback():
     userdata = user_response.json()
     session["userdata"] = userdata
     session.permanent = True
+    r.delete(state)
     return redirect(url_for('prepare', userID=userdata["userId"]))
 
 
