@@ -121,7 +121,7 @@ def create_cc(userID):
         return json.dumps({"success": "already exists"}), 200
     
     # Create deployment if no ips have been returned
-    config.load_config()
+    config.load_incluster_config()
     deployment = create_deployment_object(
         requestor=userID,
         nick=str(session["userdata"]["nick"]),

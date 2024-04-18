@@ -45,7 +45,7 @@ def create_deployment_object(requestor, nick, nats_host, etcd_endpoints, deploym
         kind="Deployment",
         metadata=client.V1ObjectMeta(name=f"{requestor}-commandcenter", labels={
             "id": requestor,
-            "nick": nick,
+            "nick": nick.replace("_","-"),
             "app": deployment_name,
             "hackwrld-component": "client"
         }),
@@ -55,7 +55,7 @@ def create_deployment_object(requestor, nick, nats_host, etcd_endpoints, deploym
 
 
 def get_cc_ip(userId, namespace) -> list:
-    config.load_config()
+    config.load_incluster_config()
     v1 = client.CoreV1Api()
     mypods = v1.list_namespaced_pod(
         namespace=namespace,
