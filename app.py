@@ -276,5 +276,10 @@ def previous_round():
     ts = r.get("ts")
     return render_template("leaderboard.html", ts=ts)
 
+@app.route("/help")
+def help():
+    return render_template("help.html")
+
+
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=8888)
