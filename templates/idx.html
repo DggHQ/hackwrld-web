@@ -30,7 +30,7 @@
         </div>
         <div class="col-sm">
             <p>Eventlog:</p>
-           <div class="inner" style="height:150px; overflow-y: auto; background-color: #333; padding: 5px;"></div>
+           <div class="inner" style="height:250px; overflow-y: auto; background-color: #333; padding: 5px;"></div>
         </div>
       </div>
 
@@ -195,13 +195,13 @@
       userid = "{{ userid }}"
       if (evt.id == userid) {
         $('<p>').attr('id', uuid).attr('class', "myevent").text("BROADCAST | "+evt.data).appendTo(".inner")
-        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+        $("#"+uuid).delay(10000).fadeOut(5000, function() {
             $(this).remove();
         });
         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
       } else {
         $('<p>').attr('id', uuid).text("BROADCAST | "+evt.data).appendTo(".inner")
-        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+        $("#"+uuid).delay(10000).fadeOut(5000, function() {
             $(this).remove();
         });
         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -261,7 +261,7 @@
                 var uuid =  uuidv4();
 
                 $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole "+result.reply.gainedCoins+ " coins").appendTo(".inner")
-                    $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                    $("#"+uuid).delay(10000).fadeOut(5000, function() {
                         $(this).remove();
                     });
                 $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -275,7 +275,7 @@
                      var uuid =  uuidv4();
                      var response = ($.parseJSON(result.responseText));
                      $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
-                     $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                     $("#"+uuid).delay(10000).fadeOut(5000, function() {
                          $(this).remove();
                      });
                      $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -319,7 +319,7 @@
                     });
 
 
-                    $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                    $("#"+uuid).delay(10000).fadeOut(5000, function() {
                         $(this).remove();
                     });
                     $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -333,7 +333,7 @@
                         var uuid =  uuidv4();
                         var response = ($.parseJSON(result.responseText));
                         $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
-                        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                        $("#"+uuid).delay(10000).fadeOut(5000, function() {
                             $(this).remove();
                         });
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -359,7 +359,7 @@
                 success: function(result) {
                     var uuid =  uuidv4()
                     $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level "+result.state.firewall.level).appendTo(".inner")
-                    $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                    $("#"+uuid).delay(10000).fadeOut(5000, function() {
                         $(this).remove();
                     });
                     $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -372,7 +372,7 @@
                         var uuid =  uuidv4();
                         var response = ($.parseJSON(result.responseText));
                         $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
-                        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                        $("#"+uuid).delay(10000).fadeOut(5000, function() {
                             $(this).remove();
                         });
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -392,7 +392,7 @@
                 success: function(result) {
                     var uuid =  uuidv4()
                     $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level "+result.state.scanner.level).appendTo(".inner")
-                    $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                    $("#"+uuid).delay(10000).fadeOut(5000, function() {
                         $(this).remove();
                     });
                     $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -405,7 +405,7 @@
                         var uuid =  uuidv4();
                         var response = ($.parseJSON(result.responseText));
                         $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
-                        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                        $("#"+uuid).delay(10000).fadeOut(5000, function() {
                             $(this).remove();
                         });
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -424,7 +424,7 @@
                 success: function(result) {
                     var uuid =  uuidv4()
                     $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level "+result.state.cryptoMiner.level).appendTo(".inner")
-                    $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                    $("#"+uuid).delay(10000).fadeOut(5000, function() {
                         $(this).remove();
                     });
                     $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -437,7 +437,7 @@
                         var uuid =  uuidv4();
                         var response = ($.parseJSON(result.responseText));
                         $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
-                        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                        $("#"+uuid).delay(10000).fadeOut(5000, function() {
                             $(this).remove();
                         });
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -456,7 +456,7 @@
                 success: function(result) {
                     var uuid =  uuidv4()
                     $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level "+result.state.stealer.level).appendTo(".inner")
-                    $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                    $("#"+uuid).delay(10000).fadeOut(5000, function() {
                         $(this).remove();
                     });
                     $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
@@ -469,7 +469,7 @@
                         var uuid =  uuidv4();
                         var response = ($.parseJSON(result.responseText));
                         $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs "+ response.reply.cost+ " coins").appendTo(".inner")
-                        $("#"+uuid).delay(5000).fadeOut(5000, function() {
+                        $("#"+uuid).delay(10000).fadeOut(5000, function() {
                             $(this).remove();
                         });
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
