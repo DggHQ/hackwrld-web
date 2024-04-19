@@ -271,6 +271,10 @@ def home(userID):
         return "Error: Unauthorized User", 403
     return render_template("idx.html", userid=userID, nick=str(session["userdata"]["nick"]), websocket_url=app_websocket_url)
 
+@app.route("/prevround")
+def previous_round():
+    ts = r.get("ts")
+    return render_template("leaderboard.html", ts=ts)
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=8888)

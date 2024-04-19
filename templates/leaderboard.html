@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% set title = 'Home' %}
+
+{% block body %}
+
+<div class="container">
+    <p></p>
+
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-sm">
+            <span class="display-3">Hackwrld Winners</span>
+            <p></p>
+            <p class="lead">Previous round's winners are shown here for about 2 days after the last round completion.</p>
+            <p class="lead">Each round lasts a week and will be restarted each Sunday at 9pm UTC</p>
+            {% if ts %}
+            <iframe src="https://grafana.0x01.host/d-solo/c970d906-b580-4632-b69c-f4554bc5e8c8/hackwrld?orgId=1&from={{ts}}&to={{ts}}&theme=dark&panelId=1" width="100%" height="200" frameborder="0"></iframe>
+            <p></p>
+            <iframe src="https://grafana.0x01.host/d-solo/c970d906-b580-4632-b69c-f4554bc5e8c8/hackwrld?orgId=1&from={{ts}}&to={{ts}}&panelId=4" width="100%" height="200" frameborder="0"></iframe>
+            <p></p>
+            <iframe src="https://grafana.0x01.host/d-solo/c970d906-b580-4632-b69c-f4554bc5e8c8/hackwrld?orgId=1&from={{ts}}&to={{ts}}&panelId=5" width="100%" height="200" frameborder="0"></iframe>
+            <p></p>
+            <p class="text-muted">If the values are empty then the data has already been purged from the database.</p>
+            {% else %}
+            <p>Currently, there are no leaderboards for the last round.</p>
+            {% endif %}
+            
+        </div>
+      </div>
+    </div>    
+  </div>
+
+{% endblock %}
+
+{% block css %}
+<style>
+    
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 20px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.myevent {
+    background-color: blueviolet;
+    border-radius: 3px;
+    padding: 2px;
+}
+.errorevent {
+    background-color: darkred;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
