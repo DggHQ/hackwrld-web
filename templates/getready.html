@@ -1,90 +1,85 @@
 {% extends 'layout.html' %}
-
-{% set title = 'Home' %}
-
+{% set title = "Home" %}
 {% block body %}
-
-<div class="container">
-    <p></p>
-
-    <div class="jumbotron">
-      <div class="row">
-        <div class="col-sm">
-            <div class="hal-9000" style="margin-right: 10px;"></div>
-            <span class="display-3">Command Center</span>
-            <p></p>
-            <p class="lead">Your command center is starting. Please wait.</p>
+    <div class="container">
+        <p></p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="hal-9000" style="margin-right: 10px;"></div>
+                    <span class="display-3">Command Center</span>
+                    <p></p>
+                    <p class="lead">Your command center is starting. Please wait.</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>    
-  </div>
-
+    </div>
 {% endblock %}
-
 {% block css %}
-<style>
-    
-.lds-dual-ring,
-.lds-dual-ring:after {
-  box-sizing: border-box;
-}
-.lds-dual-ring {
-  display: inline-block;
-  width: 20px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 6.4px solid currentColor;
-  border-color: currentColor transparent currentColor transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.myevent {
-    background-color: blueviolet;
-    border-radius: 3px;
-    padding: 2px;
-}
-.errorevent {
-    background-color: darkred;
-    border-radius: 3px;
-    padding: 2px;
-}
-
-
-</style>
-{% endblock %}
-
-{% block js %}
-<script>
-    $(function () {
-        function checkCC() {
-            $.ajax({
-                type: "POST",
-                url: "/cc/{{userid}}/create",
-                dataType: "json",
-                success: function (data) {
-                    window.location.href = "/cc/{{userid}}/home";
-                },
-                error: function () {
-                    setTimeout(function () {
-                        checkCC();
-                    }, 10000)
-                }
-            });
+    <style>
+        .lds-dual-ring,
+        .lds-dual-ring:after {
+            box-sizing: border-box;
         }
-        checkCC();
-    });
-  </script>
+
+        .lds-dual-ring {
+            display: inline-block;
+            width: 20px;
+        }
+
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 6.4px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .myevent {
+            background-color: blueviolet;
+            border-radius: 3px;
+            padding: 2px;
+        }
+
+        .errorevent {
+            background-color: darkred;
+            border-radius: 3px;
+            padding: 2px;
+        }
+    </style>
+{% endblock %}
+{% block js %}
+    <script>
+        $(function() {
+            function checkCC() {
+                $.ajax({
+                    type: "POST",
+                    url: "/cc/{{userid}}/create",
+                    dataType: "json",
+                    success: function(data) {
+                        window.location.href = "/cc/{{userid}}/home";
+                    },
+                    error: function() {
+                        setTimeout(function() {
+                            checkCC();
+                        }, 10000)
+                    }
+                });
+            }
+            checkCC();
+        });
+    </script>
 {% endblock %}
