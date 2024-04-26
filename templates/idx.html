@@ -4,116 +4,149 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container-lg" style="padding: 0px 10px 0px 10px;">
+
+
+    <div>
+        <p></p>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="display-5" href="/prevround">Last round winners</a>
+            <a class="display-5" href="/help">Help</a>
+          </nav>
     <p></p>
-
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="display-5" href="/prevround">Last round winners</a>
-        <a class="display-5" href="/help">Help</a>
-      </nav>
-<p></p>
-
-    <div class="jumbotron">
-
-      <!-- <div class="hal-9000" style="margin-right: 10px;"></div>
-      
-      <span class="display-3">Command Center</span> -->
-      <p></p>
-      <div class="row">
-        <div class="col-sm">
-            <div class="hal-9000" style="margin-right: 10px;"></div>
-            <span class="display-3">Command Center</span>
-            <p></p>
-            <p class="lead">Your command center is up and running, {{nick}}.</p>
-            <p>Command Center ID: <span id="ccid"></span></p>
-            <p id="cooldown"></p>
-        </div>
-        <div class="col-sm">
-            <p>Eventlog:</p>
-           <div class="inner" style="height:250px; overflow-y: auto; background-color: #333; padding: 5px;"></div>
-        </div>
-      </div>
-
-      <hr class="my-4">
-
-
-     
-
-        <div class="row">
-            <div class="col-sm">
-                <h3>Upgrades:</h3>
-                <a href="#!" id="fwupgrade" class="btn btn-lg btn-primary btn-block">
-                <span class="fas fa-fire mr-2"></span>Upgrade Firewall <span id="fwcost"></span>
-                </a>
-                <p></p>
-                <a href="#!" id="scannerupgrade" class="btn btn-lg btn-primary btn-block">
-                    <span class="fas fa-signal mr-2"></span>Upgrade Scanner <span id="sccost"></span>
-                    </a>
-                    <p></p>
-                <a href="#!" id="minerupgrade" class="btn btn-lg btn-primary btn-block">
-                    <span class="fab fa-bitcoin mr-2"></span>Upgrade Miner <span id="micost"></span>
-                    </a>
-                    <p></p>
-                <a href="#!" id="stealerupgrade" class="btn btn-lg btn-primary btn-block">
-                    <span class="fas fa-download mr-2"></span>Upgrade Stealer <span id="stcost"></span>
-                    </a>
-                    <hr>
-                    <p></p>
-                    <h3>Actions:</h3>
-                    <a href="#!" id="initscan" class="btn btn-lg btn-primary btn-block">
-                        <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan <span id="scanningcost"></span>
-                        <!-- lds-dual-ring -->
-                        </a>
-
-                        <p></p>
-                        <form>
-                            <div class="form-group">
-                              <label for="scantargets">Scanned targets:</label>
-                              <select name="tgt_select" class="form-control js-basic-single" id="scantargets">
-                              </select>
-                            </div>
-                        </form>
-                          <p></p>
-                          <a href="#!" id="stealcoins" class="btn btn-lg btn-primary btn-block">
-                            <span id="stealwait" class="fas fa-hand-holding-usd mr-2"></span>Steal coins <span id="stealingcost"></span>
-                            </a>
-
-
-
-            </div>
-            <div class="col-sm">
-                <h3>Coins:</h3>
-                <span id="funds" class="badge badge-primary"></span>
-                <hr>
-                <h3>Levels:</h3>
-                <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Firewall
-                    <span id="fw" class="badge badge-primary badge-pill">LEVEL</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Scanner
-                    <span id="sc" class="badge badge-primary badge-pill">LEVEL</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Miner
-                    <span id="mi" class="badge badge-primary badge-pill">LEVEL</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Stealer
-                    <span id="st" class="badge badge-primary badge-pill">LEVEL</span>
-                </li>
-                </ul>
-
-
-            </div>
-          </div>
-
-      
-
-    </div>    
     
-  </div>
+
+</div>
+
+
+
+
+<div class="row">
+    <!-- Main Game -->
+    <div class="col">
+        <div class="jumbotron">
+
+            <!-- <div class="hal-9000" style="margin-right: 10px;"></div>
+            
+            <span class="display-3">Command Center</span> -->
+            <p></p>
+            <div class="row">
+              <div class="col-sm">
+                  <div class="hal-9000" style="margin-right: 10px;"></div>
+                  <span class="display-3">Command Center</span>
+                  <p></p>
+                  <p class="lead">Your command center is up and running, {{nick}}.</p>
+                  <p>Command Center ID: <span id="ccid"></span></p>
+                  <p id="cooldown"></p>
+              </div>
+              <div class="col-sm">
+                  <p>Eventlog:</p>
+                 <div class="inner" style="height:250px; overflow-y: auto; background-color: #333; padding: 5px;"></div>
+              </div>
+            </div>
+        
+            <hr class="my-4">
+        
+        
+           
+        
+              <div class="row">
+                  <div class="col-sm">
+                      <h3>Upgrades:</h3>
+                      <a href="#!" id="fwupgrade" class="btn btn-lg btn-primary btn-block">
+                      <span class="fas fa-fire mr-2"></span>Upgrade Firewall <span id="fwcost"></span>
+                      </a>
+                      <p></p>
+                      <a href="#!" id="scannerupgrade" class="btn btn-lg btn-primary btn-block">
+                          <span class="fas fa-signal mr-2"></span>Upgrade Scanner <span id="sccost"></span>
+                          </a>
+                          <p></p>
+                      <a href="#!" id="minerupgrade" class="btn btn-lg btn-primary btn-block">
+                          <span class="fab fa-bitcoin mr-2"></span>Upgrade Miner <span id="micost"></span>
+                          </a>
+                          <p></p>
+                      <a href="#!" id="stealerupgrade" class="btn btn-lg btn-primary btn-block">
+                          <span class="fas fa-download mr-2"></span>Upgrade Stealer <span id="stcost"></span>
+                          </a>
+                          <hr>
+                          <p></p>
+                          <h3>Actions:</h3>
+                          <a href="#!" id="initscan" class="btn btn-lg btn-primary btn-block">
+                              <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan <span id="scanningcost"></span>
+                              <!-- lds-dual-ring -->
+                              </a>
+        
+                              <p></p>
+                              <form>
+                                  <div class="form-group">
+                                    <label for="scantargets">Scanned targets:</label>
+                                    <select name="tgt_select" class="form-control js-basic-single" id="scantargets">
+                                    </select>
+                                  </div>
+                              </form>
+                                <p></p>
+                                <a href="#!" id="stealcoins" class="btn btn-lg btn-primary btn-block">
+                                  <span id="stealwait" class="fas fa-hand-holding-usd mr-2"></span>Steal coins <span id="stealingcost"></span>
+                                  </a>
+        
+        
+        
+                  </div>
+                  <div class="col-sm">
+                      <h3>Coins:</h3>
+                      <span id="funds" class="badge badge-primary"></span>
+                      <hr>
+                      <h3>Levels:</h3>
+                      <ul class="list-group">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Firewall
+                          <span id="fw" class="badge badge-primary badge-pill">LEVEL</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Scanner
+                          <span id="sc" class="badge badge-primary badge-pill">LEVEL</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Miner
+                          <span id="mi" class="badge badge-primary badge-pill">LEVEL</span>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Stealer
+                          <span id="st" class="badge badge-primary badge-pill">LEVEL</span>
+                      </li>
+                      </ul>
+        
+        
+                  </div>
+                </div>
+        
+            
+        
+          </div>   
+      </div>
+      <!-- More Options (Last Steals, etc.) -->
+      <div class="col">
+
+        <div class="jumbotron">
+            <span class="display-4">Last Steals</span>
+            <p class="lead">Shows you who last stole coins from you.</p>
+                <table class="table" id="stealtable">
+                    <thead>
+                        <tr class="stealtable-tr">
+                            <th>Nick</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class="stealtable-tbody" id="stealtable-body">
+                    </tbody>
+                </table>
+        </div>    
+      </div>
+</div>
+
+
+    
+
 
 {% endblock %}
 
@@ -168,6 +201,21 @@
 }
 
 
+.stealtable-tbody {
+    display:block;
+    max-height:500px;
+    overflow-y:scroll;
+}
+
+.stealtable-tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+
+
+
 </style>
 {% endblock %}
 
@@ -188,12 +236,12 @@
         console.log("Connected")
     });
     socket.addEventListener("message", (event) => {});
-    var i = 0;
     socket.addEventListener("message", (event) => {
       var uuid =  uuidv4()
       var evt = JSON.parse(event.data)
       userid = "{{ userid }}"
       if (evt.id == userid) {
+        $('#stealtable').trigger( "change" );
         $('<p>').attr('id', uuid).attr('class', "myevent").text("BROADCAST | "+evt.data).appendTo(".inner")
         $("#"+uuid).delay(10000).fadeOut(5000, function() {
             $(this).remove();
@@ -222,6 +270,28 @@
                 $( "#stealcoins").addClass("disabled");
             }
         } );
+
+
+        $( "#stealtable" ).on( "change", function() {
+            $.ajax({
+            url: '/state',
+            type: 'GET',
+            dataType: 'json',
+            success: function(result) {
+              var lastSteals = result.state.lastSteals;
+                $('#stealtable-body tr').remove();
+                var html = '';
+                for(var i = 0; i < lastSteals.length; i++) {
+                    html += '<tr class="stealtable-tr"><td>' + lastSteals[i].nick + '</td><td>' + lastSteals[i].amount + '</td></tr>';
+                }  
+                $('#stealtable-body').append(html);
+            },
+            error: function(result) {
+              console.log("Could not get stealtable.")
+            }
+        });
+        } );
+        $('#stealtable').trigger( "change" );
 
 
         // Load scans localstorage to multiselect
