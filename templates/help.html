@@ -1,101 +1,115 @@
 {% extends 'layout.html' %}
-
-{% set title = 'Home' %}
-
+{% set title = "Home" %}
 {% block body %}
-
-<div class="container">
-    <p></p>
-
-    <div class="jumbotron">
-      <div class="row">
-        <div class="col-sm">
-            <span class="display-3">How to</span>
-            <p></p>
-            <p class="lead">Hackwrld is a multiplayer idle game made by theneedyguy where you run a command center. You passively "mine" coins and upgrade your components. The components help you to defend your command center from attacks from other players.</p>
-            <p class="display-4">Firewall</p>     
-            <p>The firewall has multiple purposes. It hides your components levels and your funds from other players and reduces the money lost from attacks from other players.</p>
-            <p>When a player scans the network two things may happen:</p>
-            <ul>
-                <li>If they have a scanner with a lower level than your firewall they will just see all the values and funds as 0.</li>
-                <li>If their scanner has a higher level than your firewall they see all your components levels and how many coins you have.</li>
-            </ul>
-            <p>When a player tries to steal from you two things may happen:</p>
-            <ul>
-                <li>If they have a scanner with a lower level than your firewall, no money will be lost.</li>
-                <li>If their scanner has a higher level than your firewall they will receive a certain amount of money based on the level difference between their stealer and your firewall. The specific calculation is described in the "Stealer" section.</li>
-            </ul>
-
-            <p class="display-4">Scanner</p>     
-            <p>The scanner helps you identify potential targets you may steal from. Each scan costs 0.1 * the level of your scanner. You will see all players and their component's levels & their current funds and cooldowns but depending on their firewall level, these values will be 0. All scans are stored in a list for target selection for use with the stealer.</p>
-
-
-            <p class="display-4">Miner</p>     
-            <p>The miner generates coins to be spent on upgrades, scans and actions. Per second you earn 0.001 * the level your miner.</p>
-
-
-            <p class="display-4">Stealer</p>     
-            <p>The stealer lets you steal money from other players. Targets are selected from the "Scanned Targets" list. Each steal costs 0.1 * the level of the stealer.</p>
-            <p>After a successful steal, the target will receive a cooldown which helps them recover from a steal. The cooldown length is based on the level difference between the attacker's stealer and their firewall. By default the cooldown is 5 Minutes + (1 Minute for each level the attacker's stealer and the defender's firewall differ). The maximum possible in the game is 24 hours.</p>
-            <p>If the defender's firewall level is higher than the stealer, 0 coins will be earned but the cost of the steal will be paid.</p>
-            <p>If the attacker has a higher stealer level than the defender's firewall level the following things will happen:</p>
-            <ul>
-                <li>((0.01 * the attacker's stealer level) * the level difference between the attacker's stealer and the defender's firewall) will be stolen.</li>
-            </ul>
-            <p>So if you have a with level 50 and the target has a firewall with level 20 the attacker will steal ((0.01 * 50) * (50-20)) coins in total. The attacker will gain 15 coins, the defender will lose 15.</p>
-            <p>Since the attacker paid 5 coins to attack (because of the level 50 stealer) the net coins gained will be 10.</p>
-            <p>If the defender does not have enough coins to lose, the attacker will instead gain all the defender's coins. Leaving the defender empty handed.</p>
+    <div class="container">
+        <p></p>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-sm">
+                    <span class="display-3">How to</span>
+                    <p></p>
+                    <p class="lead">
+                        Hackwrld is a multiplayer idle game made by theneedyguy where you run a command center. You passively "mine" coins and upgrade your components. The components help you to defend your command center from attacks from other players.
+                    </p>
+                    <p class="display-4">Firewall</p>
+                    <p>
+                        The firewall has multiple purposes. It hides your components levels and your funds from other players and reduces the money lost from attacks from other players.
+                    </p>
+                    <p>When a player scans the network two things may happen:</p>
+                    <ul>
+                        <li>If they have a scanner with a lower level than your firewall they will just see all the values and funds as 0.</li>
+                        <li>
+                            If their scanner has a higher level than your firewall they see all your components levels and how many coins you have.
+                        </li>
+                    </ul>
+                    <p>When a player tries to steal from you two things may happen:</p>
+                    <ul>
+                        <li>If they have a scanner with a lower level than your firewall, no money will be lost.</li>
+                        <li>
+                            If their scanner has a higher level than your firewall they will receive a certain amount of money based on the level difference between their stealer and your firewall. The specific calculation is described in the "Stealer" section.
+                        </li>
+                    </ul>
+                    <p class="display-4">Scanner</p>
+                    <p>
+                        The scanner helps you identify potential targets you may steal from. Each scan costs 0.1 * the level of your scanner. You will see all players and their component's levels & their current funds and cooldowns but depending on their firewall level, these values will be 0. All scans are stored in a list for target selection for use with the stealer.
+                    </p>
+                    <p class="display-4">Miner</p>
+                    <p>
+                        The miner generates coins to be spent on upgrades, scans and actions. Per second you earn 0.001 * the level your miner.
+                    </p>
+                    <p class="display-4">Stealer</p>
+                    <p>
+                        The stealer lets you steal money from other players. Targets are selected from the "Scanned Targets" list. Each steal costs 0.1 * the level of the stealer.
+                    </p>
+                    <p>
+                        After a successful steal, the target will receive a cooldown which helps them recover from a steal. The cooldown length is based on the level difference between the attacker's stealer and their firewall. By default the cooldown is 5 Minutes + (1 Minute for each level the attacker's stealer and the defender's firewall differ). The maximum possible in the game is 24 hours.
+                    </p>
+                    <p>
+                        If the defender's firewall level is higher than the stealer, 0 coins will be earned but the cost of the steal will be paid.
+                    </p>
+                    <p>If the attacker has a higher stealer level than the defender's firewall level the following things will happen:</p>
+                    <ul>
+                        <li>
+                            ((0.01 * the attacker's stealer level) * the level difference between the attacker's stealer and the defender's firewall) will be stolen.
+                        </li>
+                    </ul>
+                    <p>
+                        So if you have a with level 50 and the target has a firewall with level 20 the attacker will steal ((0.01 * 50) * (50-20)) coins in total. The attacker will gain 15 coins, the defender will lose 15.
+                    </p>
+                    <p>Since the attacker paid 5 coins to attack (because of the level 50 stealer) the net coins gained will be 10.</p>
+                    <p>
+                        If the defender does not have enough coins to lose, the attacker will instead gain all the defender's coins. Leaving the defender empty handed.
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>    
-  </div>
-
+    </div>
 {% endblock %}
-
 {% block css %}
-<style>
-    
-.lds-dual-ring,
-.lds-dual-ring:after {
-  box-sizing: border-box;
-}
-.lds-dual-ring {
-  display: inline-block;
-  width: 20px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 6.4px solid currentColor;
-  border-color: currentColor transparent currentColor transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+    <style>
+        .lds-dual-ring,
+        .lds-dual-ring:after {
+            box-sizing: border-box;
+        }
 
-.myevent {
-    background-color: blueviolet;
-    border-radius: 3px;
-    padding: 2px;
-}
-.errorevent {
-    background-color: darkred;
-    border-radius: 3px;
-    padding: 2px;
-}
+        .lds-dual-ring {
+            display: inline-block;
+            width: 20px;
+        }
 
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 6.4px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
 
-</style>
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .myevent {
+            background-color: blueviolet;
+            border-radius: 3px;
+            padding: 2px;
+        }
+
+        .errorevent {
+            background-color: darkred;
+            border-radius: 3px;
+            padding: 2px;
+        }
+    </style>
 {% endblock %}
-
 {% block js %}
 {% endblock %}
