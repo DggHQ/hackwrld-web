@@ -393,6 +393,7 @@
                 scrollCollapse: true,
                 scrollY: '500px'
             });
+            let scanTableIntervalUpdateId;
 
             // Load scans localstorage to scan table
             try {
@@ -800,7 +801,7 @@
                 stealFromTarget(targetId)
             });
 
-            let scanTableIntervalUpdateId;
+            // let scanTableIntervalUpdateId;
             let millisecondsCount = 0;
 
             function updateCountdownTime() {
