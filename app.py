@@ -184,6 +184,21 @@ def upgrade_firewall():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+@app.route("/upgrade/firewall/max", methods=["POST"])
+@login_required
+def upgrade_firewall_max():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/upgrade/firewall/max"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
 @app.route("/upgrade/scanner", methods=["POST"])
 @login_required
 def upgrade_scanner():
@@ -194,6 +209,21 @@ def upgrade_scanner():
         namespace=app_namespace
     )
     commandCenterIP = f"http://{ips[0]['ip']}/upgrade/scanner"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
+@app.route("/upgrade/scanner/max", methods=["POST"])
+@login_required
+def upgrade_scanner_max():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/upgrade/scanner/max"
     data = requests.post(commandCenterIP)
     state = data.json()
     statusCode = data.status_code
@@ -214,6 +244,21 @@ def upgrade_stealer():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+@app.route("/upgrade/stealer/max", methods=["POST"])
+@login_required
+def upgrade_stealer_max():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/upgrade/stealer/max"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
 @app.route("/upgrade/miner", methods=["POST"])
 @login_required
 def upgrade_miner():
@@ -228,6 +273,22 @@ def upgrade_miner():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
+@app.route("/upgrade/miner/max", methods=["POST"])
+@login_required
+def upgrade_miner_max():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/upgrade/miner/max"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
 
 @app.route("/scan/out", methods=["POST"])
 @login_required
@@ -270,6 +331,11 @@ def home(userID):
     if str(session["userdata"]["userId"]) != userID:
         return "Error: Unauthorized User", 403
     return render_template("idx.html", userid=userID, nick=str(session["userdata"]["nick"]), websocket_url=app_websocket_url)
+
+# @app.route("/debug")
+# def debug():
+#     return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
+
 
 @app.route("/prevround")
 def previous_round():
