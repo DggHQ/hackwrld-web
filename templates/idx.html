@@ -304,8 +304,9 @@
                 try {
                     const scans = JSON.parse(localStorage.getItem("scans"));
                     if (scans.length > 0) {
-                        scanDataSet = formatData(scans, false);
+                        scanDataSet = formatData(scans);
                         updateDataTable()
+                        startInterval()
                     }
                 } catch (error) {
                     console.error(error)
@@ -576,34 +577,19 @@
                     stealFromTarget(targetId)
                 });
 
-                function deductOneSecond(timeStr) {
-                    const [hours, minutes, seconds] = timeStr.split(':').map(Number);
-                    let totalSeconds = hours * 3600 + minutes * 60 + seconds;
-                    totalSeconds -= 1;
-                    if (totalSeconds < 0) totalSeconds = 0; // Prevent negative time
-
-                    const newHours = Math.floor(totalSeconds / 3600);
-                    const newMinutes = Math.floor((totalSeconds % 3600) / 60);
-                    const newSeconds = totalSeconds % 60;
-
-                    return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}:${String(newSeconds).padStart(2, '0')}`;
-                }
-
                 let scanTableIntervalUpdateId;
                 let millisecondsCount = 0;
 
-                // Function to update specific cell in the DataTable
-                function updateCell(rowIdx, colIdx, newValue) {
-                    // Update the cell value using DataTable's API
-                    dataTable.cell(rowIdx, colIdx).data(newValue).draw(false);
-                }
-
                 function updateCountdownTime() {
-                    scanDataSet.forEach((data, rowIdx) => {
-                        // Update the countdown time (assuming it's in the second-last column)
-                        const countdownValue = deductOneSecond(data[data.length - 2]);
-                        updateCell(rowIdx, data.length - 2, countdownValue);
-                    });
+                    const refreshedScanDataSet = scanDataSet.map((data) => {
+                        const timestamp = data[data.length - 1]
+                        data[data.length - 2] = timeRemainingToEpoch(timestamp);
+
+                        return data
+                    })
+
+                    scanDataSet = refreshedScanDataSet;
+                    updateDataTable()
                 }
 
                 function updateDataTable() {
@@ -611,26 +597,43 @@
                     dataTable.clear().rows.add(scanDataSet).draw(false);
                 }
 
+
                 function updateDataSetAndDraw() {
-                    millisecondsCount += 500;
+                    millisecondsCount += 100;
 
                     // Update the countdown time only if 1000 milliseconds have passed
                     if (millisecondsCount >= 1000) {
-                        millisecondsCount = 0; // Reset milliseconds count
+                        millisecondsCount = 0;
                         updateCountdownTime();
                     }
                 }
 
                 function startInterval() {
                     updateDataTable()
-                    scanTableIntervalUpdateId = setInterval(updateDataSetAndDraw, 500);
+                    scanTableIntervalUpdateId = setInterval(updateDataSetAndDraw, 100);
                 }
 
                 function stopInterval() {
                     clearInterval(scanTableIntervalUpdateId);
                 }
 
-                function formatData(incomingData, includeCooldown = true) {
+                function timeRemainingToEpoch(epochSeconds) {
+                    if (epochSeconds === 0) return "00:00:00"
+
+                    const currentEpochSeconds = Math.floor(Date.now() / 1000);
+
+                    if (epochSeconds <= currentEpochSeconds) {
+                        return "00:00:00";
+                    } else {
+                        const remainingSeconds = epochSeconds - currentEpochSeconds;
+                        const hours = String(Math.floor(remainingSeconds / 3600)).padStart(2, "0");
+                        const minutes = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(2, "0");
+                        const seconds = String(remainingSeconds % 60).padStart(2, "0");
+                        return `${hours}:${minutes}:${seconds}`;
+                    }
+                }
+
+                function formatData(incomingData) {
                     return incomingData.map(data => {
                         const {
                             nick,
@@ -642,14 +645,11 @@
                             cooldown,
                             id
                         } = data;
-                        const timeInSeconds = cooldown.time;
+                        const timestamp = cooldown.expirationTimestamp;
 
-                        const hours = Math.floor(timeInSeconds / 3600);
-                        const minutes = Math.floor((timeInSeconds % 3600) / 60);
-                        const seconds = timeInSeconds % 60;
-                        const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                        const formattedTime = timeRemainingToEpoch(timestamp);
 
-                        return [nick, funds.amount.toFixed(2), firewall.level.toString(), scanner.level.toString(), cryptoMiner.level.toString(), stealer.level.toString(), includeCooldown ? formattedTime : '-', id];
+                        return [nick, funds.amount.toFixed(2), firewall.level.toString(), scanner.level.toString(), cryptoMiner.level.toString(), stealer.level.toString(), formattedTime, timestamp];
                     });
                 }
 
