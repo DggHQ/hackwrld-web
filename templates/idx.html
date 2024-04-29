@@ -389,11 +389,12 @@
                 order: [
                     [2, 'desc']
                 ],
-                paging: true,
+                paging: false,
                 scrollCollapse: true,
                 scrollY: '500px'
             });
             let scanTableIntervalUpdateId;
+            let millisecondsCount = 0;
 
             // Load scans localstorage to scan table
             try {
@@ -586,8 +587,8 @@
                 });
             });
 
-             // Handle scanner upgrade max
-             $("#scannerupgrademax").on("click", function() {
+            // Handle scanner upgrade max
+            $("#scannerupgrademax").on("click", function() {
                 // Upgrade
                 $.ajax({
                     url: '/upgrade/scanner/max',
@@ -650,8 +651,8 @@
                 });
             });
 
-             // Handle miner upgrade max
-             $("#minerupgrademax").on("click", function() {
+            // Handle miner upgrade max
+            $("#minerupgrademax").on("click", function() {
                 // Upgrade
                 $.ajax({
                     url: '/upgrade/miner/max',
@@ -802,12 +803,11 @@
             });
 
             // let scanTableIntervalUpdateId;
-            let millisecondsCount = 0;
 
             function updateCountdownTime() {
                 const refreshedScanDataSet = scanDataSet.map((data) => {
-                    const timestamp = data[data.length - 1]
-                    data[data.length - 2] = timeRemainingToEpoch(timestamp);
+                    const timestamp = data[data.length - 2]
+                    data[data.length - 3] = timeRemainingToEpoch(timestamp);
 
                     return data
                 })
@@ -826,14 +826,13 @@
                 millisecondsCount += 100;
 
                 // Update the countdown time only if 1000 milliseconds have passed
-                if (millisecondsCount >= 1000) {
+                if (millisecondsCount >= 2000) {
                     millisecondsCount = 0;
                     updateCountdownTime();
                 }
             }
 
             function startInterval() {
-                updateDataTable()
                 scanTableIntervalUpdateId = setInterval(updateDataSetAndDraw, 100);
             }
 
