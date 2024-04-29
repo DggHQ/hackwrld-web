@@ -363,7 +363,7 @@ def home(userID):
 
 @app.route("/cc/<userID>/info")
 @login_required
-def home(userID):
+def user_infos(userID):
     if str(session["userdata"]["userId"]) != userID:
         return "Error: Unauthorized User", 403
     return str(session["userdata"]), 200
