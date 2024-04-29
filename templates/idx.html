@@ -900,7 +900,7 @@
                         $("#scanningcost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
 
                         var expireTime = result.state.cooldown.expirationTimestamp;
-                        var now = moment().unix().utc();
+                        var now = moment().utc().unix();
 
                         if (expireTimep > now) {
                             $('#cooldown').text("Cannot be attacked for " + (expireTime - now) + " seconds.")
