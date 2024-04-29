@@ -898,8 +898,12 @@
                         $("#stcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
                         $("#stealingcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
                         $("#scanningcost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
-                        if (result.state.cooldown.time > 0) {
-                            $('#cooldown').text("Cannot be attacked for " + result.state.cooldown.time + " seconds.")
+
+                        var expireTime = result.state.cooldown.expirationTimestamp;
+                        var now = moment().utc().unix();
+
+                        if (expireTime > now) {
+                            $('#cooldown').text("Cannot be attacked for " + (expireTime - now) + " seconds.")
                         } else {
                             $('#cooldown').text("")
                         }
