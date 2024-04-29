@@ -2868,13 +2868,13 @@ input[type="button"].btn-block {
   padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
-  color: #0a0b14;
+  color: #fff;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
   border: 0; }
   .dropdown-item:hover, .dropdown-item:focus {
-    color: #020203;
+    color: #fff;
     text-decoration: none;
     background-color: #2d2e3f; }
   .dropdown-item.active, .dropdown-item:active {

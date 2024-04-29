@@ -1,65 +1,148 @@
 {% extends 'layout.html' %}
 {% set title = "Home" %}
 {% block body %}
-    <div class="container-lg" style="padding: 0px 10px 0px 10px;">
-        <div>
-            <p></p>
-            <nav class="navbar navbar-dark bg-dark">
-                <a class="display-5" href="/prevround">Last round winners</a>
-                <a class="display-5" href="/help">Help</a>
-            </nav>
-            <p></p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <button class="navbar-toggler navbar-toggler-right"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbartoggler"
+                aria-controls="navbartoggler"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#!">Hackwrld</a>
+        <div class="collapse navbar-collapse" id="navbartoggler">
+            <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/prevround">Last round winners
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/help">Help
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="row">
-            <!-- Main Game -->
-            <div class="col-lg-6 col-md-12">
-                <div class="jumbotron">
-                    <!-- <div class="hal-9000" style="margin-right: 10px;"></div>
-            <span class="display-3">Command Center</span> -->
+    </nav>
+    <!-- Main Game -->
+    <div class="container">
+        <div class="jumbotron">
+            <p></p>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="hal-9000" style="margin-right: 10px;"></div>
+                    <span class="display-4">Command Center</span>
                     <p></p>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="hal-9000" style="margin-right: 10px;"></div>
-                            <span class="display-3">Command Center</span>
-                            <p></p>
-                            <p class="lead">Your command center is up and running, {{ nick }}.</p>
-                            <p>
-                                Command Center ID: <span id="ccid"></span>
-                            </p>
-                            <p id="cooldown"></p>
-                        </div>
-                        <div class="col-sm">
-                            <p>Eventlog:</p>
-                            <div class="inner"
-                                 style="height:250px;
-                                        overflow-y: auto;
-                                        background-color: #333;
-                                        padding: 5px"></div>
-                        </div>
-                    </div>
-                    <hr class="my-4">
+                    <p class="lead">Your command center is up and running, {{ nick }}.</p>
+                    <p>
+                        Command Center ID: <span id="ccid"></span>
+                    </p>
+                    <p id="cooldown"></p>
+                </div>
+                <div class="col-sm">
+                    <p>Eventlog:</p>
+                    <div class="inner"
+                         style="height:250px;
+                                overflow-y: auto;
+                                background-color: #333;
+                                padding: 5px"></div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link display-4 active"
+                       id="home-tab"
+                       data-toggle="tab"
+                       href="#home"
+                       role="tab"
+                       aria-controls="home"
+                       aria-selected="true">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link display-4"
+                       id="steals-tab"
+                       data-toggle="tab"
+                       href="#steals"
+                       role="tab"
+                       aria-controls="steals"
+                       aria-selected="false">Last Steals</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active"
+                     id="home"
+                     role="tabpanel"
+                     aria-labelledby="home-tab">
+                    <!-- HOME TAB -->
+                    &nbsp;
                     <div class="row">
                         <div class="col-sm">
                             <h3>Upgrades:</h3>
-                            <a href="#!" id="fwupgrade" class="btn btn-lg btn-primary btn-block">
-                                <span class="fas fa-fire mr-2"></span>Upgrade Firewall <span id="fwcost"></span>
-                            </a>
+                            <div class="btn-group btn-block">
+                                <a id="fwupgrade" type="button" class="btn btn-lg btn-block btn-primary"><span class="fas fa-fire mr-2"></span>Upgrade Firewall <span id="fwcost"></span></a>
+                                <a type="button"
+                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a id="fwupgrademax" class="dropdown-item" href="#!">Buy Max</a>
+                                </div>
+                            </div>
                             <p></p>
-                            <a href="#!"
-                               id="scannerupgrade"
-                               class="btn btn-lg btn-primary btn-block">
-                                <span class="fas fa-signal mr-2"></span>Upgrade Scanner <span id="sccost"></span>
-                            </a>
+                            <div class="btn-group btn-block">
+                                <a id="scannerupgrade"
+                                   type="button"
+                                   class="btn btn-lg btn-block btn-primary"><span class="fas fa-signal mr-2"></span>Upgrade Scanner <span id="sccost"></span></a>
+                                <a type="button"
+                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a id="scannerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
+                                </div>
+                            </div>
                             <p></p>
-                            <a href="#!" id="minerupgrade" class="btn btn-lg btn-primary btn-block">
-                                <span class="fab fa-bitcoin mr-2"></span>Upgrade Miner <span id="micost"></span>
-                            </a>
+                            <div class="btn-group btn-block">
+                                <a id="minerupgrade"
+                                   type="button"
+                                   class="btn btn-lg btn-block btn-primary"><span class="fab fa-bitcoin mr-2"></span>Upgrade Miner <span id="micost"></span></a>
+                                <a type="button"
+                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a id="minerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
+                                </div>
+                            </div>
                             <p></p>
-                            <a href="#!"
-                               id="stealerupgrade"
-                               class="btn btn-lg btn-primary btn-block">
-                                <span class="fas fa-download mr-2"></span>Upgrade Stealer <span id="stcost"></span>
-                            </a>
+                            <div class="btn-group btn-block">
+                                <a id="stealerupgrade"
+                                   type="button"
+                                   class="btn btn-lg btn-block btn-primary"><span class="fas fa-download mr-2"></span>Upgrade Stealer <span id="stcost"></span></a>
+                                <a type="button"
+                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a id="stealerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
+                                </div>
+                            </div>
                             <hr>
                             <p></p>
                         </div>
@@ -89,11 +172,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- More Options (Last Steals, etc.) -->
-            <div class="col-lg-6 col-md-12">
-                <div class="jumbotron">
-                    <span class="display-4">Last Steals</span>
+                <div class="tab-pane fade"
+                     id="steals"
+                     role="tabpanel"
+                     aria-labelledby="steals-tab">
+                    <!-- LAST STEALS -->
+                    &nbsp;
+                    <h3>Last Steals:</h3>
                     <p class="lead">Shows you who last stole coins from you.</p>
                     <table class="table" id="stealtable">
                         <thead>
@@ -107,586 +192,728 @@
                     </table>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-12">
-                <div class="jumbotron">
-                    <a href="#!" id="initscan" class="btn btn-lg btn-primary btn-block">
-                        <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan <span id="scanningcost"></span>
-                        <!-- lds-dual-ring -->
-                    </a>
-                    <p></p>
-                    <table id="scan-table" class="display" width="100%">
-                    </table>
-                </div>
-            </div>
         </div>
-    {% endblock body %}
-    {% block css %}
-        <style>
-            .lds-dual-ring,
-            .lds-dual-ring:after {
-                box-sizing: border-box;
+        <div class="jumbotron">
+            <a href="#!" id="initscan" class="btn btn-lg btn-primary btn-block">
+                <span id="scanwait" class="fas fa-signal mr-2"></span>Start Scan <span id="scanningcost"></span>
+            </a>
+            <p></p>
+            <table id="scan-table" class="display" width="100%">
+            </table>
+        </div>
+    </div>
+{% endblock body %}
+{% block css %}
+    <style>
+        .lds-dual-ring,
+        .lds-dual-ring:after {
+            box-sizing: border-box;
+        }
+
+        .lds-dual-ring {
+            display: inline-block;
+            width: 20px;
+        }
+
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 6.4px solid currentColor;
+            border-color: currentColor transparent currentColor transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+        }
+
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
             }
 
-            .lds-dual-ring {
-                display: inline-block;
-                width: 20px;
+            100% {
+                transform: rotate(360deg);
             }
+        }
 
-            .lds-dual-ring:after {
-                content: " ";
-                display: block;
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                border: 6.4px solid currentColor;
-                border-color: currentColor transparent currentColor transparent;
-                animation: lds-dual-ring 1.2s linear infinite;
-            }
+        .myevent {
+            background-color: blueviolet;
+            border-radius: 3px;
+            padding: 2px;
+        }
 
-            @keyframes lds-dual-ring {
-                0% {
-                    transform: rotate(0deg);
-                }
+        .errorevent {
+            background-color: darkred;
+            border-radius: 3px;
+            padding: 2px;
+        }
 
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
+        .select2 {
+            border-radius: 5px;
+        }
 
-            .myevent {
-                background-color: blueviolet;
-                border-radius: 3px;
-                padding: 2px;
-            }
-
-            .errorevent {
-                background-color: darkred;
-                border-radius: 3px;
-                padding: 2px;
-            }
-
-            .select2 {
-                border-radius: 5px;
-            }
-
-            .select2-results__option {
-                color: black;
-                padding: 10px;
-            }
+        .select2-results__option {
+            color: black;
+            padding: 10px;
+        }
 
 
-            .stealtable-tbody {
-                display: block;
-                max-height: 500px;
-                overflow-y: scroll;
-            }
+        .stealtable-tbody {
+            display: block;
+            max-height: 500px;
+            overflow-y: scroll;
+        }
 
-            .stealtable-tr {
-                display: table;
-                width: 100%;
-                table-layout: fixed;
-            }
-        </style>
-    {% endblock css %}
-    {% block js %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="https://cdn.datatables.net/2.0.4/js/dataTables.js"></script>
-        <link rel="stylesheet"
-              href="https://cdn.datatables.net/2.0.4/css/dataTables.dataTables.css" />
-        <script>
-            function uuidv4() {
-                return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-                    (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
-                );
-            }
-            // Create WebSocket connection.
-            const socket = new WebSocket("{{websocket_url}}");
+        .stealtable-tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
 
-            // Connection opened
-            socket.addEventListener("open", (event) => {
-                console.log("Connected")
-            });
-            socket.addEventListener("message", (event) => {});
-            socket.addEventListener("message", (event) => {
-                var uuid = uuidv4()
-                var evt = JSON.parse(event.data)
-                userid = "{{ userid }}"
-                if (evt.id == userid) {
-                    $('#stealtable').trigger("change");
-                    $('<p>').attr('id', uuid).attr('class', "myevent").text("BROADCAST | " + evt.data).appendTo(".inner")
-                    $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                        $(this).remove();
-                    });
-                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                } else {
-                    $('<p>').attr('id', uuid).text("BROADCAST | " + evt.data).appendTo(".inner")
-                    $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                        $(this).remove();
-                    });
-                    $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                }
+        .hal-9000 {
+            background: #f9d080;
+            border: 12px #ff3c5c solid;
+            border-radius: 90px;
+            -webkit-box-shadow: 0 0 40px #ff3c5c;
+            box-shadow: 0 0 40px #ff3c5c;
+            display: inline-block;
+            height: 40px;
+            width: 40px;
+        }
+    </style>
+{% endblock css %}
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.4/js/dataTables.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/2.0.4/css/dataTables.dataTables.css" />
+    <script>
+        function uuidv4() {
+            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+                (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+            );
+        }
+        // Create WebSocket connection.
+        const socket = new WebSocket("{{websocket_url}}");
 
-            });
-            $(document).ready(function() {
-                $('.js-basic-single').select2({
-                    color: "resolve"
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+            console.log("Connected")
+        });
+        socket.addEventListener("message", (event) => {});
+        socket.addEventListener("message", (event) => {
+            var uuid = uuidv4()
+            var evt = JSON.parse(event.data)
+            userid = "{{ userid }}"
+            if (evt.id == userid) {
+                $('#stealtable').trigger("change");
+                $('<p>').attr('id', uuid).attr('class', "myevent").text("BROADCAST | " + evt.data).appendTo(".inner")
+                $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                    $(this).remove();
                 });
+                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+            } else {
+                $('<p>').attr('id', uuid).text("BROADCAST | " + evt.data).appendTo(".inner")
+                $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                    $(this).remove();
+                });
+                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+            }
 
-                let scanDataSet = [];
-                let dataTable = $('#scan-table').DataTable({
-                    columns: [{
-                        title: 'Nick',
-                        render: (data) => {
-                            return `<div class="d-flex align-items-center justify-content-start" style="height: 100%;"><p class="font-weight-bold mb-0">${data}</p></div>`;
-                        }
-                    }, {
-                        title: 'Funds',
-                        render: (data) => {
-                            return `
+        });
+        $(document).ready(function() {
+            $('.js-basic-single').select2({
+                color: "resolve"
+            });
+
+            let scanDataSet = [];
+            let dataTable = $('#scan-table').DataTable({
+                columns: [{
+                    title: 'Nick',
+                    render: (data) => {
+                        return `<div class="d-flex align-items-center justify-content-start" style="height: 100%;"><p class="font-weight-bold mb-0">${data}</p></div>`;
+                    }
+                }, {
+                    title: 'Funds',
+                    render: (data) => {
+                        return `
 <span class="badge badge-secondary badge-pill">${data}</span>
 `
-                        }
-                    }, {
-                        title: 'Firewall',
-                        render: (data) => {
-                            return `
+                    }
+                }, {
+                    title: 'Firewall',
+                    render: (data) => {
+                        return `
 <span class="badge badge-primary badge-pill">${data}</span>
 `
-                        }
-                    }, {
-                        title: 'Scanner',
-                        render: (data) => {
-                            return `
+                    }
+                }, {
+                    title: 'Scanner',
+                    render: (data) => {
+                        return `
 <span class="badge badge-primary badge-pill">${data}</span>
 `
-                        }
-                    }, {
-                        title: 'Miner',
-                        render: (data) => {
-                            return `
+                    }
+                }, {
+                    title: 'Miner',
+                    render: (data) => {
+                        return `
 <span class="badge badge-primary badge-pill">${data}</span>
 `
-                        }
-                    }, {
-                        title: 'Stealer',
-                        render: (data) => {
-                            return `
+                    }
+                }, {
+                    title: 'Stealer',
+                    render: (data) => {
+                        return `
 <span class="badge badge-primary badge-pill">${data}</span>
 `
-                        }
-                    }, {
-                        title: 'Cooldown',
-                        className: "cooldown-cell",
-                        render: (data) => {
-                            return `<div class="d-flex align-items-center justify-content-end" style="height: 100%;"><span class="mb-0 badge badge-info badge-pill">${data}</span></div>`;
-                        }
-                    }, {
-                        title: 'Steal',
-                        render: (data, type) => {
-                            return `
+                    }
+                }, {
+                    title: 'Cooldown',
+                    className: "cooldown-cell",
+                    render: (data) => {
+                        return `<div class="d-flex align-items-center justify-content-end" style="height: 100%;"><span class="mb-0 badge badge-info badge-pill">${data}</span></div>`;
+                    }
+                }, {
+                    title: 'Steal',
+                    render: (data, type) => {
+                        return `
                           <button id="stealcoins" type="button" class="btn btn-sm btn-primary btn-block">
                             <span id="stealwait" class="fas fa-hand-holding-usd mr-2 pull-right"></span>Steal
                           </button>
                       `;
-                        }
-                    }],
-                    data: scanDataSet,
-                    order: [
-                        [2, 'desc']
-                    ],
-                    paging: true,
-                    scrollCollapse: true,
-                    scrollY: '500px'
-                });
-
-                // Load scans localstorage to scan table
-                try {
-                    const scans = JSON.parse(localStorage.getItem("scans"));
-                    if (scans.length > 0) {
-                        scanDataSet = formatData(scans);
-                        updateDataTable()
-                        startInterval()
                     }
-                } catch (error) {
-                    console.error(error)
-                    console.log("scans is not in local storage")
-                }
-
-
-                $("#stealtable").on("change", function() {
-                    $.ajax({
-                        url: '/state',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(result) {
-                            var lastSteals = result.state.lastSteals;
-                            $('#stealtable-body tr').remove();
-                            var html = '';
-                            for (var i = 0; i < lastSteals.length; i++) {
-                                html += '<tr class="stealtable-tr"><td>' + lastSteals[i].nick + '</td><td>' + lastSteals[i].amount + '</td></tr>';
-                            }
-                            $('#stealtable-body').append(html);
-                        },
-                        error: function(result) {
-                            console.log("Could not get stealtable.")
-                        }
-                    });
-                });
-                $('#stealtable').trigger("change");
-
-                // Handle scan start
-                $("#initscan").on("click", function(e) {
-                    // Upgrade
-                    $.ajax({
-                        url: '/scan/out',
-                        beforeSend: function() {
-                            $("#initscan").addClass("disabled");
-                            $("[id=scanwait]").removeClass("fas").removeClass("fa-signal");
-                            $("[id=scanwait]").addClass("lds-dual-ring");
-                            $("[id=stealcoins]").prop("disabled", true);
-                        },
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(result) {
-                            $("#initscan").addClass("disabled");
-                            $("[id=scanwait]").removeClass("fas").removeClass("fa-signal");
-                            $("[id=scanwait]").addClass("lds-dual-ring");
-                            $("[id=stealcoins]").prop("disabled", false);
-                            localStorage.setItem("scans", JSON.stringify([]));
-                            var uuid = uuidv4()
-                            $('<p>').attr('id', uuid).text("Successfully scanned the network").appendTo(".inner")
-                            localStorage.setItem("scans", JSON.stringify(result.scans));
-
-                            stopInterval()
-
-                            scanDataSet = formatData(result.scans)
-                            startInterval()
-
-
-                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                $(this).remove();
-                            });
-                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-
-                        },
-                        statusCode: {
-                            403: function(result) {
-                                $("#initscan").removeClass("disabled");
-                                $("[id=scanwait]").removeClass("lds-dual-ring");
-                                $("[id=scanwait]").addClass("fas").addClass("fa-signal");
-                                var uuid = uuidv4();
-                                var response = ($.parseJSON(result.responseText));
-                                $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
-                                $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                    $(this).remove();
-                                });
-                                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                            }
-                        }
-                    }).done(function() {
-                        $("#initscan").removeClass("disabled");
-                        $("[id=scanwait]").removeClass("lds-dual-ring");
-                        $("[id=scanwait]").addClass("fas").addClass("fa-signal");
-                    });
-
-                });
-
-
-                // Handle firewall upgrade
-                $("#fwupgrade").on("click", function() {
-                    // Upgrade
-                    $.ajax({
-                        url: '/upgrade/firewall',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(result) {
-                            var uuid = uuidv4()
-                            $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level " + result.state.firewall.level).appendTo(".inner")
-                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                $(this).remove();
-                            });
-                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                        },
-                        error: function(result) {
-                            console.log("Could not connect to backend.")
-                        },
-                        statusCode: {
-                            403: function(result) {
-                                var uuid = uuidv4();
-                                var response = ($.parseJSON(result.responseText));
-                                $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
-                                $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                    $(this).remove();
-                                });
-                                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                            }
-                        }
-                    });
-                });
-
-
-                // Handle scanner upgrade
-                $("#scannerupgrade").on("click", function() {
-                    // Upgrade
-                    $.ajax({
-                        url: '/upgrade/scanner',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(result) {
-                            var uuid = uuidv4()
-                            $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level " + result.state.scanner.level).appendTo(".inner")
-                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                $(this).remove();
-                            });
-                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                        },
-                        error: function(result) {
-                            console.log("Could not connect to backend.")
-                        },
-                        statusCode: {
-                            403: function(result) {
-                                var uuid = uuidv4();
-                                var response = ($.parseJSON(result.responseText));
-                                $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
-                                $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                    $(this).remove();
-                                });
-                                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                            }
-                        }
-                    });
-                });
-
-                // Handle miner upgrade
-                $("#minerupgrade").on("click", function() {
-                    // Upgrade
-                    $.ajax({
-                        url: '/upgrade/miner',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(result) {
-                            var uuid = uuidv4()
-                            $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level " + result.state.cryptoMiner.level).appendTo(".inner")
-                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                $(this).remove();
-                            });
-                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                        },
-                        error: function(result) {
-                            console.log("Could not connect to backend.")
-                        },
-                        statusCode: {
-                            403: function(result) {
-                                var uuid = uuidv4();
-                                var response = ($.parseJSON(result.responseText));
-                                $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
-                                $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                    $(this).remove();
-                                });
-                                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                            }
-                        }
-                    });
-                });
-
-                // Handle miner upgrade
-                $("#stealerupgrade").on("click", function() {
-                    // Upgrade
-                    $.ajax({
-                        url: '/upgrade/stealer',
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(result) {
-                            var uuid = uuidv4()
-                            $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level " + result.state.stealer.level).appendTo(".inner")
-                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                $(this).remove();
-                            });
-                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                        },
-                        error: function(result) {
-                            console.log("Could not connect to backend.")
-                        },
-                        statusCode: {
-                            403: function(result) {
-                                var uuid = uuidv4();
-                                var response = ($.parseJSON(result.responseText));
-                                $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
-                                $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                    $(this).remove();
-                                });
-                                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                            }
-                        }
-                    });
-                });
-
-                function stealFromTarget(targetId) {
-                    $.ajax({
-                        url: '/steal',
-                        data: JSON.stringify({
-                            "targetid": targetId
-                        }),
-                        contentType: 'application/json',
-                        beforeSend: function() {
-                            $("[id=stealcoins]").prop("disabled", true);
-                            $("[id=stealwait]").removeClass("fas").removeClass("fa-hand-holding-usd");
-                            $("[id=stealwait]").addClass("lds-dual-ring");
-                        },
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function(result) {
-                            $("[id=stealcoins]").prop("disabled", true);
-                            $("[id=stealwait]").removeClass("fas").removeClass("fa-hand-holding-usd");
-                            $("[id=stealwait]").addClass("lds-dual-ring");
-                            var uuid = uuidv4();
-
-                            $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole " + result.reply.gainedCoins + " coins").appendTo(".inner")
-                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                $(this).remove();
-                            });
-                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-
-                        },
-                        statusCode: {
-                            403: function(result) {
-                                $("[id=stealcoins]").prop("disabled", false);
-                                $("[id=stealwait]").removeClass("lds-dual-ring");
-                                $("[id=stealwait]").addClass("fas").addClass("fa-hand-holding-usd");
-                                var uuid = uuidv4();
-                                var response = ($.parseJSON(result.responseText));
-                                $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
-                                $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                                    $(this).remove();
-                                });
-                                $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
-                            }
-                        }
-                    }).done(function() {
-                        $("[id=stealcoins]").prop("disabled", false);
-                        $("[id=stealwait]").removeClass("lds-dual-ring");
-                        $("[id=stealwait]").addClass("fas").addClass("fa-hand-holding-usd");
-                    });
-                }
-
-                dataTable.on('click', 'button', function() {
-                    var data = dataTable.row($(this).parents('tr')).data();
-
-                    const targetId = dataTable.row($(this).parents('tr')).data().slice(-1)[0];
-                    stealFromTarget(targetId)
-                });
-
-                let scanTableIntervalUpdateId;
-                let millisecondsCount = 0;
-
-                function updateCountdownTime() {
-                    const refreshedScanDataSet = scanDataSet.map((data) => {
-                        const timestamp = data[data.length - 1]
-                        data[data.length - 2] = timeRemainingToEpoch(timestamp);
-
-                        return data
-                    })
-
-                    scanDataSet = refreshedScanDataSet;
-                    updateDataTable()
-                }
-
-                function updateDataTable() {
-                    // Clear the DataTable (if needed) and add modified data
-                    dataTable.clear().rows.add(scanDataSet).draw(false);
-                }
-
-
-                function updateDataSetAndDraw() {
-                    millisecondsCount += 100;
-
-                    // Update the countdown time only if 1000 milliseconds have passed
-                    if (millisecondsCount >= 1000) {
-                        millisecondsCount = 0;
-                        updateCountdownTime();
-                    }
-                }
-
-                function startInterval() {
-                    updateDataTable()
-                    scanTableIntervalUpdateId = setInterval(updateDataSetAndDraw, 100);
-                }
-
-                function stopInterval() {
-                    clearInterval(scanTableIntervalUpdateId);
-                }
-
-                function timeRemainingToEpoch(epochSeconds) {
-                    if (epochSeconds === 0) return "00:00:00"
-
-                    const currentEpochSeconds = Math.floor(Date.now() / 1000);
-
-                    if (epochSeconds <= currentEpochSeconds) {
-                        return "00:00:00";
-                    } else {
-                        const remainingSeconds = epochSeconds - currentEpochSeconds;
-                        const hours = String(Math.floor(remainingSeconds / 3600)).padStart(2, "0");
-                        const minutes = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(2, "0");
-                        const seconds = String(remainingSeconds % 60).padStart(2, "0");
-                        return `${hours}:${minutes}:${seconds}`;
-                    }
-                }
-
-                function formatData(incomingData) {
-                    return incomingData.map(data => {
-                        const {
-                            nick,
-                            funds,
-                            firewall,
-                            scanner,
-                            cryptoMiner,
-                            stealer,
-                            cooldown,
-                            id
-                        } = data;
-                        const timestamp = cooldown.expirationTimestamp;
-
-                        const formattedTime = timeRemainingToEpoch(timestamp);
-
-                        return [nick, funds.amount.toFixed(2), firewall.level.toString(), scanner.level.toString(), cryptoMiner.level.toString(), stealer.level.toString(), formattedTime, timestamp];
-                    });
-                }
-
-
-
-
-                setInterval(() => {
-                    $.ajax({
-                        url: '/state',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(result) {
-                            $('#fw').text(result.state.firewall.level)
-                            $('#sc').text(result.state.scanner.level)
-                            $('#mi').text(result.state.cryptoMiner.level)
-                            $('#st').text(result.state.stealer.level)
-                            $('#ccid').text(result.state.id)
-                            $('#funds').text(result.state.funds.amount)
-                            $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
-                            $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
-                            $("#micost").text("(" + (result.state.cryptoMiner.level * 0.1).toFixed(1) + ")")
-                            $("#stcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
-                            $("#stealingcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
-                            $("#scanningcost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
-                            if (result.state.cooldown.time > 0) {
-                                $('#cooldown').text("Cannot be attacked for " + result.state.cooldown.time + " seconds.")
-                            } else {
-                                $('#cooldown').text("")
-                            }
-                        },
-                        error: function(result) {
-                            console.log("Could not connect to backend.")
-                        }
-                    });
-
-
-                }, 1000);
+                }],
+                data: scanDataSet,
+                order: [
+                    [2, 'desc']
+                ],
+                paging: false,
+                scrollCollapse: true,
+                scrollY: '500px'
             });
-        </script>
-    {% endblock js %}
+            let scanTableIntervalUpdateId;
+            let millisecondsCount = 0;
+
+            // Load scans localstorage to scan table
+            try {
+                const scans = JSON.parse(localStorage.getItem("scans"));
+                if (scans.length > 0) {
+                    scanDataSet = formatData(scans);
+                    updateDataTable()
+                    startInterval()
+                }
+            } catch (error) {
+                console.error(error)
+                console.log("scans is not in local storage")
+            }
+
+
+            $("#stealtable").on("change", function() {
+                $.ajax({
+                    url: '/state',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                        var lastSteals = result.state.lastSteals;
+                        $('#stealtable-body tr').remove();
+                        var html = '';
+                        for (var i = 0; i < lastSteals.length; i++) {
+                            html += '<tr class="stealtable-tr"><td>' + lastSteals[i].nick + '</td><td>' + lastSteals[i].amount + '</td></tr>';
+                        }
+                        $('#stealtable-body').append(html);
+                    },
+                    error: function(result) {
+                        console.log("Could not get stealtable.")
+                    }
+                });
+            });
+            $('#stealtable').trigger("change");
+
+            // Handle scan start
+            $("#initscan").on("click", function(e) {
+                // Upgrade
+                $.ajax({
+                    url: '/scan/out',
+                    beforeSend: function() {
+                        $("#initscan").addClass("disabled");
+                        $("[id=scanwait]").removeClass("fas").removeClass("fa-signal");
+                        $("[id=scanwait]").addClass("lds-dual-ring");
+                        $("[id=stealcoins]").prop("disabled", true);
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        $("#initscan").addClass("disabled");
+                        $("[id=scanwait]").removeClass("fas").removeClass("fa-signal");
+                        $("[id=scanwait]").addClass("lds-dual-ring");
+                        $("[id=stealcoins]").prop("disabled", false);
+                        localStorage.setItem("scans", JSON.stringify([]));
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).text("Successfully scanned the network").appendTo(".inner")
+                        localStorage.setItem("scans", JSON.stringify(result.scans));
+
+                        stopInterval()
+
+                        scanDataSet = formatData(result.scans)
+                        startInterval()
+
+
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            $("#initscan").removeClass("disabled");
+                            $("[id=scanwait]").removeClass("lds-dual-ring");
+                            $("[id=scanwait]").addClass("fas").addClass("fa-signal");
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                }).done(function() {
+                    $("#initscan").removeClass("disabled");
+                    $("[id=scanwait]").removeClass("lds-dual-ring");
+                    $("[id=scanwait]").addClass("fas").addClass("fa-signal");
+                });
+
+            });
+
+
+            // Handle firewall upgrade
+            $("#fwupgrade").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/firewall',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level " + result.state.firewall.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle firewall upgrade max
+            $("#fwupgrademax").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/firewall/max',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level " + result.state.firewall.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+
+
+            // Handle scanner upgrade
+            $("#scannerupgrade").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/scanner',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level " + result.state.scanner.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle scanner upgrade max
+            $("#scannerupgrademax").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/scanner/max',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level " + result.state.scanner.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle miner upgrade
+            $("#minerupgrade").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/miner',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level " + result.state.cryptoMiner.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle miner upgrade max
+            $("#minerupgrademax").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/miner/max',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level " + result.state.cryptoMiner.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle miner upgrade
+            $("#stealerupgrade").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/stealer',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level " + result.state.stealer.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle miner upgrade
+            $("#stealerupgrademax").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/stealer/max',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level " + result.state.stealer.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            function stealFromTarget(targetId) {
+                $.ajax({
+                    url: '/steal',
+                    data: JSON.stringify({
+                        "targetid": targetId
+                    }),
+                    contentType: 'application/json',
+                    beforeSend: function() {
+                        $("[id=stealcoins]").prop("disabled", true);
+                        $("[id=stealwait]").removeClass("fas").removeClass("fa-hand-holding-usd");
+                        $("[id=stealwait]").addClass("lds-dual-ring");
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        $("[id=stealcoins]").prop("disabled", true);
+                        $("[id=stealwait]").removeClass("fas").removeClass("fa-hand-holding-usd");
+                        $("[id=stealwait]").addClass("lds-dual-ring");
+                        var uuid = uuidv4();
+
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("You stole " + result.reply.gainedCoins + " coins").appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            $("[id=stealcoins]").prop("disabled", false);
+                            $("[id=stealwait]").removeClass("lds-dual-ring");
+                            $("[id=stealwait]").addClass("fas").addClass("fa-hand-holding-usd");
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                }).done(function() {
+                    $("[id=stealcoins]").prop("disabled", false);
+                    $("[id=stealwait]").removeClass("lds-dual-ring");
+                    $("[id=stealwait]").addClass("fas").addClass("fa-hand-holding-usd");
+                });
+            }
+
+            dataTable.on('click', 'button', function() {
+                var data = dataTable.row($(this).parents('tr')).data();
+
+                const targetId = dataTable.row($(this).parents('tr')).data().slice(-1)[0];
+                stealFromTarget(targetId.toString())
+            });
+
+            // let scanTableIntervalUpdateId;
+
+            function updateCountdownTime() {
+                const refreshedScanDataSet = scanDataSet.map((data) => {
+                    const timestamp = data[data.length - 2]
+                    data[data.length - 3] = timeRemainingToEpoch(timestamp);
+
+                    return data
+                })
+
+                scanDataSet = refreshedScanDataSet;
+                updateDataTable()
+            }
+
+            function updateDataTable() {
+                // Clear the DataTable (if needed) and add modified data
+                dataTable.clear().rows.add(scanDataSet).draw(false);
+            }
+
+
+            function updateDataSetAndDraw() {
+                millisecondsCount += 100;
+
+                // Update the countdown time only if 1000 milliseconds have passed
+                if (millisecondsCount >= 2000) {
+                    millisecondsCount = 0;
+                    updateCountdownTime();
+                }
+            }
+
+            function startInterval() {
+                scanTableIntervalUpdateId = setInterval(updateDataSetAndDraw, 100);
+            }
+
+            function stopInterval() {
+                clearInterval(scanTableIntervalUpdateId);
+            }
+
+            function timeRemainingToEpoch(epochSeconds) {
+                if (epochSeconds === 0) return "00:00:00"
+
+                const currentEpochSeconds = Math.floor(Date.now() / 1000);
+
+                if (epochSeconds <= currentEpochSeconds) {
+                    return "00:00:00";
+                } else {
+                    const remainingSeconds = epochSeconds - currentEpochSeconds;
+                    const hours = String(Math.floor(remainingSeconds / 3600)).padStart(2, "0");
+                    const minutes = String(Math.floor((remainingSeconds % 3600) / 60)).padStart(2, "0");
+                    const seconds = String(remainingSeconds % 60).padStart(2, "0");
+                    return `${hours}:${minutes}:${seconds}`;
+                }
+            }
+
+            function formatData(incomingData) {
+                return incomingData.map(data => {
+                    const {
+                        nick,
+                        funds,
+                        firewall,
+                        scanner,
+                        cryptoMiner,
+                        stealer,
+                        cooldown,
+                        id
+                    } = data;
+                    const timestamp = cooldown.expirationTimestamp;
+
+                    const formattedTime = timeRemainingToEpoch(timestamp);
+
+                    return [nick, funds.amount.toFixed(2), firewall.level.toString(), scanner.level.toString(), cryptoMiner.level.toString(), stealer.level.toString(), formattedTime, timestamp, id];
+                });
+            }
+
+
+
+
+            setInterval(() => {
+                $.ajax({
+                    url: '/state',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                        $('#fw').text(result.state.firewall.level)
+                        $('#sc').text(result.state.scanner.level)
+                        $('#mi').text(result.state.cryptoMiner.level)
+                        $('#st').text(result.state.stealer.level)
+                        $('#ccid').text(result.state.id)
+                        $('#funds').text(result.state.funds.amount)
+                        $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
+                        $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
+                        $("#micost").text("(" + (result.state.cryptoMiner.level * 0.1).toFixed(1) + ")")
+                        $("#stcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
+                        $("#stealingcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
+                        $("#scanningcost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
+
+                        var expireTime = result.state.cooldown.expirationTimestamp;
+                        var now = moment().utc().unix();
+
+                        if (expireTime > now) {
+                            $('#cooldown').text("Cannot be attacked for " + (expireTime - now) + " seconds.")
+                        } else {
+                            $('#cooldown').text("")
+                        }
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    }
+                });
+
+
+            }, 1000);
+        });
+    </script>
+{% endblock js %}
