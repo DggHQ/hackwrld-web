@@ -324,6 +324,35 @@ def init_steal():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+@app.route("/vault/store", methods=["POST"])
+@login_required
+def store_vault():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/vault/store"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
+@app.route("/vault/withdraw", methods=["POST"])
+@login_required
+def withdraw_vault():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/vault/withdraw"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
 
 @app.route("/cc/<userID>/home")
 @login_required
@@ -332,9 +361,9 @@ def home(userID):
         return "Error: Unauthorized User", 403
     return render_template("idx.html", userid=userID, nick=str(session["userdata"]["nick"]), websocket_url=app_websocket_url)
 
-# @app.route("/debug")
-# def debug():
-#     return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
+@app.route("/debug")
+def debug():
+    return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
 
 
 @app.route("/prevround")
