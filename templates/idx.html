@@ -902,7 +902,7 @@
                         var expireTime = result.state.cooldown.expirationTimestamp;
                         var now = moment().utc().unix();
 
-                        if (expireTimep > now) {
+                        if (expireTime > now) {
                             $('#cooldown').text("Cannot be attacked for " + (expireTime - now) + " seconds.")
                         } else {
                             $('#cooldown').text("")
