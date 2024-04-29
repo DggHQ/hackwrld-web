@@ -128,9 +128,13 @@ def create_cc(userID):
     
     # Create deployment if no ips have been returned
     config.load_incluster_config()
+    team = str(session["userdata"]["team"])
+    if team == None:
+        team = "none"
     deployment = create_deployment_object(
         requestor=userID,
         nick=str(session["userdata"]["nick"]),
+        team=team,
         nats_host=app_nats_host,
         etcd_endpoints=app_etcs_endpoints,
         deployment_name=f"{userID}-commandcenter"
