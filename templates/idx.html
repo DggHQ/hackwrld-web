@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="hal-9000" style="margin-right: 10px;"></div>
-                    <span class="display-4">Command Center</span>
+                    <span class="display-4">[Command Center<span class="vim-caret">]</span></span>
                     <p></p>
                     <p class="lead">Your command center is up and running, {{ nick }}.</p>
                     <p>
@@ -256,6 +256,20 @@
 {% endblock body %}
 {% block css %}
     <style>
+        .vim-caret {
+            -webkit-animation: vimCaret 1s linear infinite;
+            -o-animation: vimCaret 1s linear infinite;
+            animation: vimCaret 1s linear infinite;
+            animation-name: vimCaret;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-delay: 0s;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+            animation-fill-mode: none;
+            animation-play-state: running;
+        }
+
         .lds-dual-ring,
         .lds-dual-ring:after {
             box-sizing: border-box;

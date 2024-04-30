@@ -372,9 +372,9 @@ def user_infos(userID):
         return "Error: Unauthorized User", 403
     return str(session["userdata"]), 200
 
-# @app.route("/debug")
-# def debug():
-#     return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
+@app.route("/debug")
+def debug():
+    return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
 
 
 @app.route("/prevround")
