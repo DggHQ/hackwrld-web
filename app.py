@@ -343,16 +343,16 @@ def store_vault():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
-@app.route("/vault/withdraw", methods=["POST"])
+@app.route("/upgrade/vault", methods=["POST"])
 @login_required
-def withdraw_vault():
+def upgrade_vault():
     # Query backend pod 
     # Get pod (with label selectors) ip via k8s api first then get the state
     ips = get_cc_ip(
         userId=str(session["userdata"]["userId"]),
         namespace=app_namespace
     )
-    commandCenterIP = f"http://{ips[0]['ip']}/vault/withdraw"
+    commandCenterIP = f"http://{ips[0]['ip']}/upgrade/vault"
     data = requests.post(commandCenterIP)
     state = data.json()
     statusCode = data.status_code

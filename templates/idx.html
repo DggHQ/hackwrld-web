@@ -150,6 +150,11 @@
                                     <a id="stealerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
                                 </div>
                             </div>
+
+                            <p></p>
+                                <a id="vaultupgrade"
+                                   type="button"
+                                   class="btn btn-lg btn-block btn-primary"><span class="fas fa-piggy-bank mr-2"></span>Upgrade Vault <span id="vacost"></span></a>
                             <hr>
                             <p></p>
                         </div>
@@ -163,7 +168,7 @@
                                           class="badge badge-primary"
                                           data-toggle="tooltip"
                                           data-placement="top"
-                                          title="Coins can be used to upgrade your components, scan targets and steal from other players.">0</span>
+                                          title="These funds can be stolen by other players. Transfer them to the Vault to keep them safe and to be able to invest them in upgrades.">0</span>
                                 </div>
                                 <div class="col">
                                     <h3>Vault:</h3>
@@ -173,7 +178,7 @@
                                           class="badge badge-primary"
                                           data-toggle="tooltip"
                                           data-placement="top"
-                                          title="Coins stored in the Vault cannot be stolen or used to buy upgrades or execute actions.">0</span>
+                                          title="Coins stored in the Vault can be used to buy upgrades and execute actions. Each Vault level gives you +10 maximum capacity.">0</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -183,12 +188,12 @@
                                        class="btn btn-lg btn-primary btn-block"
                                        data-toggle="tooltip"
                                        data-placement="bottom"
-                                       title="Safeguard your current funds in the Vault. A 10% deposit fee is deducted.">
-                                        <span class="fas fa-piggy-bank mr-2"></span>Deposit
+                                       title="Transfer your mined coins to the vault to be able to buy upgrades and execute actions.">
+                                        <span class="fas fa-exchange-alt mr-2"></span>Transfer to Vault
                                     </a>
                                     &nbsp;
                                 </div>
-                                <div class="col">
+                                <!-- <div class="col">
                                     <a href="#!"
                                        id="withdrawvault"
                                        class="btn btn-lg btn-primary btn-block"
@@ -197,7 +202,7 @@
                                        title="Withdraw all coins stored in the vault back to your wallet.">
                                         <span class="fas fa-hand-holding-usd mr-2"></span>Withdraw
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                             <hr>
                             <h3>Levels:</h3>
@@ -217,6 +222,10 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Stealer
                                     <span id="st" class="badge badge-primary badge-pill">LEVEL</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Vault
+                                    <span id="va" class="badge badge-primary badge-pill">LEVEL</span>
                                 </li>
                             </ul>
                         </div>
@@ -844,17 +853,16 @@
                 });
             });
 
-
-            // Handle storing coins in vault
-            $("#withdrawvault").on("click", function() {
+            // Handle miner upgrade
+            $("#vaultupgrade").on("click", function() {
                 // Upgrade
                 $.ajax({
-                    url: '/vault/withdraw',
+                    url: '/upgrade/vault',
                     type: 'POST',
                     dataType: 'json',
                     success: function(result) {
                         var uuid = uuidv4()
-                        $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Vault to level " + result.state.vault.level).appendTo(".inner")
                         $("#" + uuid).delay(10000).fadeOut(5000, function() {
                             $(this).remove();
                         });
@@ -867,7 +875,7 @@
                         403: function(result) {
                             var uuid = uuidv4();
                             var response = ($.parseJSON(result.responseText));
-                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Could not withdraw coins from vault.").appendTo(".inner")
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
                             $("#" + uuid).delay(10000).fadeOut(5000, function() {
                                 $(this).remove();
                             });
@@ -876,8 +884,6 @@
                     }
                 });
             });
-
-
 
             function stealFromTarget(targetId) {
                 $.ajax({
@@ -1021,9 +1027,11 @@
                         $('#sc').text(result.state.scanner.level)
                         $('#mi').text(result.state.cryptoMiner.level)
                         $('#st').text(result.state.stealer.level)
+                        $('#va').text(result.state.vault.level)
                         $('#ccid').text(result.state.id)
                         $('#funds').text(result.state.funds.amount)
                         $('#vault').text(result.state.vault.amount)
+                        $("#vacost").text("(" + (result.state.vault.level * 10).toFixed(1) + ")")
                         $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
                         $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
                         $("#micost").text("(" + (result.state.cryptoMiner.level * 0.1).toFixed(1) + ")")
