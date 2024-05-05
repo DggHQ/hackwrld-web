@@ -28,6 +28,7 @@ app_nats_host = os.getenv("NATS_HOST")
 app_etcs_endpoints = os.getenv("ETCD_ENDPOINTS")
 app_maintenance = os.getenv("MAINTENANCE", "disabled")
 app_valkey_host = os.getenv("VALKEY_HOST", "valkey.hackwrld.svc")
+cc_image = os.getenv("CC_IMAGE", "ghcr.io/dgghq/hackwrld-client:main")
 
 
 
@@ -137,6 +138,7 @@ def create_cc(userID):
         team=team,
         nats_host=app_nats_host,
         etcd_endpoints=app_etcs_endpoints,
+        image_name=cc_image,
         deployment_name=f"{userID}-commandcenter"
     )
     v1 = client.AppsV1Api()
