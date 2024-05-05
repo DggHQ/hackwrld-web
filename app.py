@@ -28,6 +28,7 @@ app_nats_host = os.getenv("NATS_HOST")
 app_etcs_endpoints = os.getenv("ETCD_ENDPOINTS")
 app_maintenance = os.getenv("MAINTENANCE", "disabled")
 app_valkey_host = os.getenv("VALKEY_HOST", "valkey.hackwrld.svc")
+cc_image = os.getenv("CC_IMAGE", "ghcr.io/dgghq/hackwrld-client:main")
 
 
 
@@ -128,11 +129,16 @@ def create_cc(userID):
     
     # Create deployment if no ips have been returned
     config.load_incluster_config()
+    team = str(session["userdata"]["team"])
+    if team == None:
+        team = "none"
     deployment = create_deployment_object(
         requestor=userID,
         nick=str(session["userdata"]["nick"]),
+        team=team,
         nats_host=app_nats_host,
         etcd_endpoints=app_etcs_endpoints,
+        image_name=cc_image,
         deployment_name=f"{userID}-commandcenter"
     )
     v1 = client.AppsV1Api()
@@ -324,6 +330,35 @@ def init_steal():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+@app.route("/vault/store", methods=["POST"])
+@login_required
+def store_vault():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/vault/store"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
+@app.route("/upgrade/vault", methods=["POST"])
+@login_required
+def upgrade_vault():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/upgrade/vault"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
 
 @app.route("/cc/<userID>/home")
 @login_required
@@ -332,9 +367,16 @@ def home(userID):
         return "Error: Unauthorized User", 403
     return render_template("idx.html", userid=userID, nick=str(session["userdata"]["nick"]), websocket_url=app_websocket_url)
 
-# @app.route("/debug")
-# def debug():
-#     return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
+@app.route("/cc/<userID>/info")
+@login_required
+def user_infos(userID):
+    if str(session["userdata"]["userId"]) != userID:
+        return "Error: Unauthorized User", 403
+    return str(session["userdata"]), 200
+
+@app.route("/debug")
+def debug():
+    return render_template("idx.html", userid="userID", nick="", websocket_url="app_websocket_url")
 
 
 @app.route("/prevround")

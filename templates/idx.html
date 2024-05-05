@@ -20,6 +20,13 @@
                     </a>
                 </li>
                 <li class="nav-item active">
+                    <a class="nav-link"
+                       href="https://grafana.0x01.host/d/c970d906-b580-4632-b69c-f4554bc5e8c8"
+                       target="_blank">Stats
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="/help">Help
                         <span class="sr-only">(current)</span>
                     </a>
@@ -34,7 +41,7 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="hal-9000" style="margin-right: 10px;"></div>
-                    <span class="display-4">Command Center</span>
+                    <span class="display-4">[Command Center<span class="vim-caret">]</span></span>
                     <p></p>
                     <p class="lead">Your command center is up and running, {{ nick }}.</p>
                     <p>
@@ -82,73 +89,79 @@
                     <div class="row">
                         <div class="col-sm">
                             <h3>Upgrades:</h3>
-                            <div class="btn-group btn-block">
+                            <div class="btn-group btn-block" role="group" aria-label="firewall">
                                 <a id="fwupgrade" type="button" class="btn btn-lg btn-block btn-primary"><span class="fas fa-fire mr-2"></span>Upgrade Firewall <span id="fwcost"></span></a>
-                                <a type="button"
-                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a id="fwupgrademax" class="dropdown-item" href="#!">Buy Max</a>
-                                </div>
+                                <a id="fwupgrademax" type="button" class="btn btn-lg btn-secondary">Max</a>
                             </div>
                             <p></p>
-                            <div class="btn-group btn-block">
+                            <div class="btn-group btn-block" role="group" aria-label="firewall">
                                 <a id="scannerupgrade"
                                    type="button"
                                    class="btn btn-lg btn-block btn-primary"><span class="fas fa-signal mr-2"></span>Upgrade Scanner <span id="sccost"></span></a>
-                                <a type="button"
-                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a id="scannerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
-                                </div>
+                                <a id="scannerupgrademax" type="button" class="btn btn-lg btn-secondary">Max</a>
                             </div>
                             <p></p>
-                            <div class="btn-group btn-block">
+                            <div class="btn-group btn-block" role="group" aria-label="firewall">
                                 <a id="minerupgrade"
                                    type="button"
                                    class="btn btn-lg btn-block btn-primary"><span class="fab fa-bitcoin mr-2"></span>Upgrade Miner <span id="micost"></span></a>
-                                <a type="button"
-                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a id="minerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
-                                </div>
+                                <a id="minerupgrademax" type="button" class="btn btn-lg btn-secondary">Max</a>
                             </div>
                             <p></p>
-                            <div class="btn-group btn-block">
+                            <div class="btn-group btn-block" role="group" aria-label="firewall">
                                 <a id="stealerupgrade"
                                    type="button"
                                    class="btn btn-lg btn-block btn-primary"><span class="fas fa-download mr-2"></span>Upgrade Stealer <span id="stcost"></span></a>
-                                <a type="button"
-                                   class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a id="stealerupgrademax" class="dropdown-item" href="#!">Buy Max</a>
-                                </div>
+                                <a id="stealerupgrademax" type="button" class="btn btn-lg btn-secondary">Max</a>
                             </div>
+                            <p></p>
+                            <a id="vaultupgrade"
+                               type="button"
+                               class="btn btn-lg btn-block btn-primary"><span class="fas fa-piggy-bank mr-2"></span>Upgrade Vault <span id="vacost"></span></a>
                             <hr>
                             <p></p>
                         </div>
                         <div class="col-sm">
-                            <h3>Coins:</h3>
-                            <span id="funds" class="badge badge-primary"></span>
+                            <div class="row">
+                                <div class="col">
+                                    <h3>Coins:</h3>
+                                </div>
+                                <div class="col">
+                                    <span id="funds"
+                                          class="badge badge-primary"
+                                          data-toggle="tooltip"
+                                          data-placement="top"
+                                          title="These funds can be stolen by other players. Transfer them to the Vault to keep them safe and to be able to invest them in upgrades.">0</span>
+                                </div>
+                                <div class="col">
+                                    <h3>Vault:</h3>
+                                </div>
+                                <div class="col">
+                                    <span id="vault"
+                                          class="badge badge-primary"
+                                          data-toggle="tooltip"
+                                          data-placement="top"
+                                          title="Coins stored in the Vault can be used to buy upgrades and execute actions. Each Vault level gives you +10 maximum capacity.">0</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#!"
+                                       id="storevault"
+                                       class="btn btn-lg btn-primary btn-block"
+                                       data-toggle="tooltip"
+                                       data-placement="bottom"
+                                       title="Transfer your mined coins to the vault to be able to buy upgrades and execute actions.">
+                                        <span class="fas fa-exchange-alt mr-2"></span>Transfer to Vault
+                                    </a>
+                                    &nbsp;
+                                </div>
+                                <!-- <div class="col">
+                                    <a href="#!" id="withdrawvault" class="btn btn-lg btn-primary btn-block" data-toggle="tooltip" data-placement="bottom" title="Withdraw all coins stored in the vault back to your wallet.">
+                                        <span class="fas fa-hand-holding-usd mr-2"></span>Withdraw
+                                    </a>
+                                </div> -->
+                            </div>
                             <hr>
                             <h3>Levels:</h3>
                             <ul class="list-group">
@@ -167,6 +180,10 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Stealer
                                     <span id="st" class="badge badge-primary badge-pill">LEVEL</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Vault
+                                    <span id="va" class="badge badge-primary badge-pill">LEVEL</span>
                                 </li>
                             </ul>
                         </div>
@@ -201,10 +218,25 @@
             <table id="scan-table" class="display" width="100%">
             </table>
         </div>
+        <p class="text-muted">Made by theneedyguy. Contributors: Keah</p>
     </div>
 {% endblock body %}
 {% block css %}
     <style>
+        .vim-caret {
+            -webkit-animation: vimCaret 1s linear infinite;
+            -o-animation: vimCaret 1s linear infinite;
+            animation: vimCaret 1s linear infinite;
+            animation-name: vimCaret;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-delay: 0s;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+            animation-fill-mode: none;
+            animation-play-state: running;
+        }
+
         .lds-dual-ring,
         .lds-dual-ring:after {
             box-sizing: border-box;
@@ -323,9 +355,9 @@
 
         });
         $(document).ready(function() {
-            $('.js-basic-single').select2({
-                color: "resolve"
-            });
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
 
             let scanDataSet = [];
             let dataTable = $('#scan-table').DataTable({
@@ -747,6 +779,70 @@
                 });
             });
 
+            // Handle storing coins in vault
+            $("#storevault").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/vault/store',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Could not store coins in vault.").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle miner upgrade
+            $("#vaultupgrade").on("click", function() {
+                // Upgrade
+                $.ajax({
+                    url: '/upgrade/vault',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Vault to level " + result.state.vault.level).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text("Not enough funds. Costs " + response.reply.cost + " coins").appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
             function stealFromTarget(targetId) {
                 $.ajax({
                     url: '/steal',
@@ -889,8 +985,11 @@
                         $('#sc').text(result.state.scanner.level)
                         $('#mi').text(result.state.cryptoMiner.level)
                         $('#st').text(result.state.stealer.level)
+                        $('#va').text(result.state.vault.level)
                         $('#ccid').text(result.state.id)
                         $('#funds').text(result.state.funds.amount)
+                        $('#vault').text(result.state.vault.amount)
+                        $("#vacost").text("(" + (result.state.vault.level * 10).toFixed(1) + ")")
                         $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
                         $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
                         $("#micost").text("(" + (result.state.cryptoMiner.level * 0.1).toFixed(1) + ")")
