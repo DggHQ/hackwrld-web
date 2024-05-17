@@ -904,17 +904,13 @@
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
                     },
                     error: function(result) {
-                        var uuid = uuidv4();
-                        $('<p>').attr('id', uuid).attr('class', 'errorevent').text(result.message).appendTo(".inner")
-                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
-                            $(this).remove();
-                        });
-                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        console.log("Could not connect to backend.")
                     },
                     statusCode: {
                         403: function(result) {
                             var uuid = uuidv4();
-                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(result.message).appendTo(".inner")
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
                             $("#" + uuid).delay(10000).fadeOut(5000, function() {
                                 $(this).remove();
                             });
