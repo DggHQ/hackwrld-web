@@ -44,6 +44,8 @@
                     <span class="display-4">[Command Center<span class="vim-caret">]</span></span>
                     <p></p>
                     <p class="lead">Your command center is up and running, {{ nick }}.</p>
+                    <p></p>
+                    <p class="lead">Command Center Level: <span id="playerlevel"></span></p>
                     <p>
                         Command Center ID: <span id="ccid"></span>
                     </p>
@@ -986,6 +988,9 @@
                         $('#mi').text(result.state.cryptoMiner.level)
                         $('#st').text(result.state.stealer.level)
                         $('#va').text(result.state.vault.level)
+
+                        $('#playerlevel').text(result.state.stealer.level + result.state.cryptoMiner.level + result.state.scanner.level + result.state.firewall.level)
+
                         $('#ccid').text(result.state.id)
                         $('#funds').text(result.state.funds.amount)
                         $('#vault').text(result.state.vault.amount)
@@ -996,6 +1001,8 @@
                         $("#stcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
                         $("#stealingcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
                         $("#scanningcost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
+                        
+
 
                         var expireTime = result.state.cooldown.expirationTimestamp;
                         var now = moment().utc().unix();
