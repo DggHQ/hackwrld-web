@@ -903,9 +903,9 @@
                         });
                         $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
                     },
-                    error: function(result) {
-                        console.log("Could not connect to backend.")
-                    },
+                    // error: function(result) {
+                    //     console.log("Could not connect to backend.")
+                    // },
                     statusCode: {
                         403: function(result) {
                             var uuid = uuidv4();
