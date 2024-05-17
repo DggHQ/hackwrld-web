@@ -909,8 +909,8 @@
                     statusCode: {
                         403: function(result) {
                             var uuid = uuidv4();
-                            var response = ($.parseJSON(result.responseText));
-                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(result.message).appendTo(".inner")
+                            var response = ($.parseJSON(result));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
                             $("#" + uuid).delay(10000).fadeOut(5000, function() {
                                 $(this).remove();
                             });
