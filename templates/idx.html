@@ -989,7 +989,7 @@
                         $('#ccid').text(result.state.id)
                         $('#funds').text(result.state.funds.amount)
                         $('#vault').text(result.state.vault.amount)
-                        $("#vacost").text("(" + (result.state.vault.level * 10).toFixed(1) + ")")
+                        $("#vacost").text("(" + (result.state.vault.capacity).toFixed(1) + ")")
                         $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
                         $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
                         $("#micost").text("(" + (result.state.cryptoMiner.level * 0.1).toFixed(1) + ")")
