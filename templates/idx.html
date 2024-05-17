@@ -45,7 +45,9 @@
                     <p></p>
                     <p class="lead">Your command center is up and running, {{ nick }}.</p>
                     <p></p>
-                    <p class="lead">Command Center Level: <span id="playerlevel"></span></p>
+                    <p class="lead">
+                        Command Center Level: <span id="playerlevel"></span>
+                    </p>
                     <p>
                         Command Center ID: <span id="ccid"></span>
                     </p>
@@ -79,6 +81,15 @@
                        role="tab"
                        aria-controls="steals"
                        aria-selected="false">Last Steals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link display-4"
+                       id="shop-tab"
+                       data-toggle="tab"
+                       href="#shop"
+                       role="tab"
+                       aria-controls="shop"
+                       aria-selected="false">Shop</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -207,6 +218,37 @@
                             </tr>
                         </thead>
                         <tbody class="stealtable-tbody" id="stealtable-body">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade"
+                     id="shop"
+                     role="tabpanel"
+                     aria-labelledby="shop-tab">
+                    <!-- SHOP -->
+                    &nbsp;
+                    <!-- <h3>Shop</h3> -->
+                    <p class="lead">Buy items here (This is an early version of the shop. More items are coming in the future.)</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th>Cost</th>
+                                <th>Activate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Vault Miner</td>
+                                <td>
+                                    Mines your current vault's capacity directly to the vault. If the vault is full then it pauses and mined coins go to your "Coins" counter.
+                                </td>
+                                <td id="vaultminercost">0</td>
+                                <th>
+                                    <a id="vaultminerenable" type="button" class="btn btn-lg btn-secondary">Activate</a>
+                                </th>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -845,6 +887,39 @@
                 });
             });
 
+
+            // Handle vault miner activation
+            $("#vaultminerenable").on("click", function() {
+                // Activate vault miner
+                $.ajax({
+                    url: '/shop/activate/vaultminer',
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(result.message).appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
             function stealFromTarget(targetId) {
                 $.ajax({
                     url: '/steal',
@@ -983,6 +1058,15 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(result) {
+
+                        if (result.state.inventory.vaultMiner.enabled) {
+                            $("[id=vaultminerenable]").prop("disabled", true);
+                            $("[id=vaultminerenable]").text("Active" + "(" + result.state.inventory.vaultMiner.amountLeft + ")");
+                        } else {
+                            $("[id=vaultminerenable]").prop("disabled", false);
+                            $("[id=vaultminerenable]").text("Activate");
+                        }
+
                         $('#fw').text(result.state.firewall.level)
                         $('#sc').text(result.state.scanner.level)
                         $('#mi').text(result.state.cryptoMiner.level)
@@ -994,6 +1078,7 @@
                         $('#ccid').text(result.state.id)
                         $('#funds').text(result.state.funds.amount)
                         $('#vault').text(result.state.vault.amount)
+                        $('#vaultminercost').text((result.state.vault.capacity * 0.2).toFixed(1))
                         $("#vacost").text("(" + (result.state.vault.capacity).toFixed(1) + ")")
                         $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
                         $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
@@ -1001,7 +1086,7 @@
                         $("#stcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
                         $("#stealingcost").text("(" + (result.state.stealer.level * 0.1).toFixed(1) + ")")
                         $("#scanningcost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
-                        
+
 
 
                         var expireTime = result.state.cooldown.expirationTimestamp;
