@@ -403,6 +403,10 @@ def previous_round():
 def help():
     return render_template("help.html")
 
+@app.route("/changelog")
+def changelog():
+    return render_template("changelog.html")
+
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=8888)
