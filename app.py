@@ -12,13 +12,14 @@ import json
 import os
 from datetime import timedelta
 import redis
+from flask_wtf.csrf import CSRFProtect
 
 from k8s import *
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "supersecretkey")
 app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=1440)
-
+csrf = CSRFProtect(app)
 callback_url_setting = os.getenv("CALLBACK_URL", "http://localhost:8888/callback")
 app_id_setting = os.getenv("APP_ID")
 app_secret_setting = os.getenv("APP_SECRET")
@@ -112,6 +113,7 @@ def callback():
 
 # API call only
 @app.route("/cc/<userID>/create", methods=["POST"])
+@csrf.exempt
 @login_required
 def create_cc(userID):
     if str(session["userdata"]["userId"]) != userID:

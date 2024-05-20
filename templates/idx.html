@@ -496,6 +496,11 @@
                     url: '/state',
                     type: 'GET',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var lastSteals = result.state.lastSteals;
                         $('#stealtable-body tr').remove();
@@ -517,7 +522,10 @@
                 // Upgrade
                 $.ajax({
                     url: '/scan/out',
-                    beforeSend: function() {
+                    beforeSend: function(xhr, settings) {
+                        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
                         $("#initscan").addClass("disabled");
                         $("[id=scanwait]").removeClass("fas").removeClass("fa-signal");
                         $("[id=scanwait]").addClass("lds-dual-ring");
@@ -577,6 +585,11 @@
                     url: '/upgrade/firewall',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level " + result.state.firewall.level).appendTo(".inner")
@@ -609,6 +622,11 @@
                     url: '/upgrade/firewall/max',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Firewall to level " + result.state.firewall.level).appendTo(".inner")
@@ -643,6 +661,11 @@
                     url: '/upgrade/scanner',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level " + result.state.scanner.level).appendTo(".inner")
@@ -675,6 +698,11 @@
                     url: '/upgrade/scanner/max',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Scanner to level " + result.state.scanner.level).appendTo(".inner")
@@ -707,6 +735,11 @@
                     url: '/upgrade/miner',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level " + result.state.cryptoMiner.level).appendTo(".inner")
@@ -739,6 +772,11 @@
                     url: '/upgrade/miner/max',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Miner to level " + result.state.cryptoMiner.level).appendTo(".inner")
@@ -771,6 +809,11 @@
                     url: '/upgrade/stealer',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level " + result.state.stealer.level).appendTo(".inner")
@@ -803,6 +846,11 @@
                     url: '/upgrade/stealer/max',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Stealer to level " + result.state.stealer.level).appendTo(".inner")
@@ -835,6 +883,11 @@
                     url: '/vault/store',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
@@ -867,6 +920,11 @@
                     url: '/upgrade/vault',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text("Upgraded Vault to level " + result.state.vault.level).appendTo(".inner")
@@ -900,6 +958,11 @@
                     url: '/shop/activate/vaultminer',
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
                         var uuid = uuidv4()
                         $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
@@ -931,6 +994,11 @@
                     data: JSON.stringify({
                         "targetid": targetId
                     }),
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     contentType: 'application/json',
                     beforeSend: function() {
                         $("[id=stealcoins]").prop("disabled", true);
@@ -1062,6 +1130,11 @@
                     url: '/state',
                     type: 'GET',
                     dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        },
                     success: function(result) {
 
                         if (result.state.inventory.vaultMiner.enabled) {
