@@ -1,28 +1,29 @@
 {% extends 'layout.html' %}
 {% set title = "Home" %}
 {% block body %}
-  
-
-
-<header class="-fixed">
-    <h1>Hackwrld Changelog</h1>
-  </header>
-  <div class="wrap-content">
-    <article class="changelog">
-      <section class="version -planned">
-        <div class="header">
-          <h2 class="version-num">1.2.0</h2>
-          <time class="datetime" datetime="02-04-2019">May 19th, 2024</time>
-        </div>
-        <section>
-          <div class="label -s -blue">New</div>
-          <ul>
-            <li>Shop: Buy Items from the Shop that help you progress in the game.</li>
-            <li>Item: VaultMiner | Mines 50% of your vault's capacity directly into the vault. If the vault is full then continue mining normally.</li>
-            <li><span class="label-inline -ghost -orange">NOTE</span> More items will come in the future. This is the inital version. Feedback welcome.</li>
-          </ul>
-        </section>
-        <!-- <section>
+    <header class="-fixed">
+        <h1>Hackwrld Changelog</h1>
+    </header>
+    <div class="wrap-content">
+        <article class="changelog">
+            <section class="version -planned">
+                <div class="header">
+                    <h2 class="version-num">1.2.0</h2>
+                    <time class="datetime" datetime="02-04-2019">May 19th, 2024</time>
+                </div>
+                <section>
+                    <div class="label -s -blue">New</div>
+                    <ul>
+                        <li>Shop: Buy Items from the Shop that help you progress in the game.</li>
+                        <li>
+                            Item: VaultMiner | Mines 50% of your vault's capacity directly into the vault. If the vault is full then continue mining normally.
+                        </li>
+                        <li>
+                            <span class="label-inline -ghost -orange">NOTE</span> More items will come in the future. This is the inital version. Feedback welcome.
+                        </li>
+                    </ul>
+                </section>
+                <!-- <section>
           <div class="label -s -bg" style="background: indigo;">Changes</div>
           <ul>
             <li><span class="label-inline -ghost -orange">TODO</span> Feature with an inline label</li>
@@ -31,327 +32,355 @@
             <li>Feature</li>
           </ul>
         </section> -->
-        <section>
-          <div class="label -s -bg" style="background: indigo;">Changes</div>
-          <ul>
-            <li>The Vault now doubles it's capacity with each upgrade instead of adding +10 capacity.</li>
-          </ul>
-        </section>
-      </section>
-
-
-
-
-      <section class="version -planned">
-        <div class="header">
-          <h2 class="version-num">1.1.1</h2>
-          <time class="datetime" datetime="02-04-2019">May 5th, 2024</time>
-        </div>
-        <section>
-          <div class="label -s -bg" style="background: indigo;">Changes</div>
-          <ul>
-            <li>Cooldowns are now always 10 Minutes. This should make upgrading the firewall more important.</li>
-            <li>Vault is now the primary source of funds for upgrades, etc. Transfers are essential to be able to buy upgrades. Coins in the vault are safe from theft. Coins not in the vault on the other hand, not.</li>
-            <li>Steal amount increased 10% | (0.1 -> 0.11) * stealerLevel</li>
-          </ul>
-        </section>
-      </section>
-
-
-      <section class="version -planned">
-        <div class="header">
-          <h2 class="version-num">1.1</h2>
-          <time class="datetime" datetime="02-04-2019">April 28th, 2024</time>
-        </div>
-        <section>
-            <div class="label -s -blue">New</div>
-          <ul>
-            <li>Vault: The Vault allows you to store (for a 10% fee) all of your current funds. You can then later withdraw your funds to pay for upgrades. The Vault cannot be stolen from. The Funds in the Vault cannot be used to buy upgrades. They are frozen until withdrawn.</li>
-          </ul>
-        </section>
-      </section>
-
-      <section class="version -planned">
-        <div class="header">
-          <h2 class="version-num">1.0.3</h2>
-          <time class="datetime" datetime="02-04-2019">April 21st, 2024</time>
-        </div>
-        <section>
-            <div class="label -s -blue">New</div>
-          <ul>
-            <li>"Buy Max" option is now available per component</li>
-          </ul>
-        </section>
-      </section>
-
-      <section class="version -planned">
-        <div class="header">
-          <h2 class="version-num">1.0.2</h2>
-          <time class="datetime" datetime="02-04-2019">April 14th, 2024</time>
-        </div>
-        <section>
-            <div class="label -s -blue">New</div>
-          <ul>
-            <li>State now stores a list of the 50 last people who stole from you.</li>
-          </ul>
-        </section>
-      </section>
-
-
-      <section class="version -planned">
-        <div class="header">
-          <h2 class="version-num">1.0.1</h2>
-          <time class="datetime" datetime="02-04-2019">Apri 7th, 2024</time>
-        </div>
-        <section>
-            <div class="label -s -bg" style="background: indigo;">Changes</div>
-          <ul>
-            <li>CommandCenter will reply to every scan. If the defender has a higher firewall level than the attacker's scanner level, reply 0 for all components.</li>
-          </ul>
-        </section>
-      </section>
-
-    </article>
-  </div>
-
-
-
+                <section>
+                    <div class="label -s -bg" style="background: indigo;">Changes</div>
+                    <ul>
+                        <li>The Vault now doubles it's capacity with each upgrade instead of adding +10 capacity.</li>
+                    </ul>
+                </section>
+            </section>
+            <section class="version -planned">
+                <div class="header">
+                    <h2 class="version-num">1.1.1</h2>
+                    <time class="datetime" datetime="02-04-2019">May 5th, 2024</time>
+                </div>
+                <section>
+                    <div class="label -s -bg" style="background: indigo;">Changes</div>
+                    <ul>
+                        <li>Cooldowns are now always 10 Minutes. This should make upgrading the firewall more important.</li>
+                        <li>
+                            Vault is now the primary source of funds for upgrades, etc. Transfers are essential to be able to buy upgrades. Coins in the vault are safe from theft. Coins not in the vault on the other hand, not.
+                        </li>
+                        <li>Steal amount increased 10% | (0.1 -> 0.11) * stealerLevel</li>
+                    </ul>
+                </section>
+            </section>
+            <section class="version -planned">
+                <div class="header">
+                    <h2 class="version-num">1.1</h2>
+                    <time class="datetime" datetime="02-04-2019">April 28th, 2024</time>
+                </div>
+                <section>
+                    <div class="label -s -blue">New</div>
+                    <ul>
+                        <li>
+                            Vault: The Vault allows you to store (for a 10% fee) all of your current funds. You can then later withdraw your funds to pay for upgrades. The Vault cannot be stolen from. The Funds in the Vault cannot be used to buy upgrades. They are frozen until withdrawn.
+                        </li>
+                    </ul>
+                </section>
+            </section>
+            <section class="version -planned">
+                <div class="header">
+                    <h2 class="version-num">1.0.3</h2>
+                    <time class="datetime" datetime="02-04-2019">April 21st, 2024</time>
+                </div>
+                <section>
+                    <div class="label -s -blue">New</div>
+                    <ul>
+                        <li>"Buy Max" option is now available per component</li>
+                    </ul>
+                </section>
+            </section>
+            <section class="version -planned">
+                <div class="header">
+                    <h2 class="version-num">1.0.2</h2>
+                    <time class="datetime" datetime="02-04-2019">April 14th, 2024</time>
+                </div>
+                <section>
+                    <div class="label -s -blue">New</div>
+                    <ul>
+                        <li>State now stores a list of the 50 last people who stole from you.</li>
+                    </ul>
+                </section>
+            </section>
+            <section class="version -planned">
+                <div class="header">
+                    <h2 class="version-num">1.0.1</h2>
+                    <time class="datetime" datetime="02-04-2019">Apri 7th, 2024</time>
+                </div>
+                <section>
+                    <div class="label -s -bg" style="background: indigo;">Changes</div>
+                    <ul>
+                        <li>
+                            CommandCenter will reply to every scan. If the defender has a higher firewall level than the attacker's scanner level, reply 0 for all components.
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </article>
+    </div>
 {% endblock %}
 {% block css %}
-<style>
-@charset "UTF-8";
+    <style>
+        @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i|Open+Sans:400,400i,600,600i,700,700i|Roboto+Slab:300,400,700&subset=cyrillic');
+        @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i|Open+Sans:400,400i,600,600i,700,700i|Roboto+Slab:300,400,700&subset=cyrillic');
 
-$breakpoints: (
-  'phone': 320px,
-  'tablet': 768px,
-  'desktop': 1024px
-);
+        $breakpoints: (
+            'phone': 320px,
+            'tablet': 768px,
+            'desktop': 1024px
+        );
 
-html {
-  box-sizing: border-box;
-}
-
-*::before,
-*,
-*::after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-}
-
-body{
-  font-family: 'Open Sans', sans-serif;
-}
-
-$clr-yellow:#FDD835;
-$clr-blue:#2196F3;
-$clr-green:#4CAF50;
-$clr-orange:#FF9800;
-$clr-red:#f44336;
-
-img.emoji{
-  height: 1em;
-  width: 1em;
-  margin: 0 .05em 0 .1em;
-  vertical-align: -0.1em;
-}
-
-header{
-    border-bottom: 1px solid #f3f3f3;
-    padding: 1rem;
-    //fixed header
-    &.-fixed{
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: white;
-      z-index: 1;
-    }
-    >*{
-      max-width: 1024px;
-      margin: 0 auto;
-    }
-}
-header.-fixed + .wrap-content {
-  padding-top: 60px;
-}
-.wrap-content{
-  overflow-y: auto;
-  min-height:calc(100vh - 64px);
-  max-width: 1024px;
-  margin: 0 auto;
-}
-article{
-  padding: 10px;
-  header{
-    border-bottom: 1px solid #f3f3f3;
-    padding: 1rem 0;
-  }
-  section.version{
-    margin: 1rem 0;
-    .header{
-      position: relative;
-      display: flex;
-      align-items: center;
-      .version-num{
-        &.-planned{
-          color: rgba(255,255,255,.3);
+        html {
+            box-sizing: border-box;
         }
-        &.-labelled{
-          display: inline-flex;
-          padding: 0 4px;
-          border: 2px solid rgba(255,255,255,.5);
-          //color: white;
-          background: transparent;
-          border-radius: 5px;
-          align-items: center;
-          justify-content: center;
-        }
-        &.-deprecated{
-          display: inline-flex;
-          padding: 0 4px;
-          border: 2px solid transparent;
-          color: white;
-          background: #4d4d4d;
-          border-radius: 5px;
-          align-items: center;
-          justify-content: center;
-        }
-        &.-declined{
-          display: inline-flex;
-          padding: 0 4px;
-          border: 2px solid rgba(255,255,255,.3);
-          color: rgba(255,255,255,.5);
-          background: transparent;
-          border-radius: 5px;
-          align-items: center;
-          justify-content: center;
-          text-decoration: line-through;
-        }
-      }
-      .datetime{
-        margin: 0 0 0 10px;
-        color: rgba(255,255,255,.5);
-      }
-      >*:not(:first-child){
-        margin: 0 0 0 10px;
-      }
-    }
-    .label, .label-inline{
-      display: inline-flex;
-      padding: 4px 10px;
-      margin: 20px 0 5px 0;
-      border: 1px solid transparent;
-      color: white;
-      background: #bababa;
-      border-radius: 9999px;
-      align-items: center;
-      justify-content: center;
-      &.-s{
-        padding: 2px 6px;
-        font-size: 10pt;
-      }
-      &.-m{
-        padding: 4px 10px;
-        font-size: 12pt;
-      }
-      &.-l{
-        padding: 6px 14px;
-        font-size: 14pt;
-      }
-      &.-yellow{
-        color: black;
-        background:$clr-yellow;
-      }
-      &.-blue{
-        color: white;
-        background:$clr-blue;
-      }
-      &.-green{
-        color: white;
-        background:$clr-green;
-      }
-      &.-orange{
-        color: white;
-        background:$clr-orange;
-      }
-      &.-red{
-        color: white;
-        background:$clr-red;
-      }
-      &.-ghost{
-        background: transparent;
-        border: 2px solid #bababa;
-        color: #bababa;
-        font-weight: 600;
-        &.-yellow{
-          color: black;
-          border-color: $clr-yellow;
-        }
-        &.-blue{
-          color: $clr-blue;
-          border-color: $clr-blue;
-        }
-        &.-green{
-          color: $clr-green;
-          border-color: $clr-green;
-        }
-        &.-orange{
-          color: $clr-orange;
-          border-color: $clr-orange;
-        }
-        &.-red{
-          color: $clr-red;
-          border-color: $clr-red;
-        } 
-      }
-    }
-    .label-inline{
-      padding: 2px 6px;
-      font-size: 10pt;
-      border-radius: 5px;
-      margin: 0 5px 0 0;
-    }
-    ul, ol {
-      list-style-position: inside;
-      //padding: 5px;
-      li{
-        display: flex;
-        align-items: center;
-        margin: 5px 0;
-      }
-    }
-    dd{
-      list-style-position: inside;
-      dt{
-        display: flex;
-        align-items: center;
-        margin: 5px 0;
-      }
-    }
-    &.-declined{
-      //display: inline-flex;
-      padding: 0 4px;
-      //border: 2px solid rgba(255,255,255,.3);
-      opacity: .5;
-      background: transparent;
-      border-radius: 5px;
-      align-items: center;
-      justify-content: center;
-      text-decoration: line-through;
-    }
-  }
-}
 
-@include media(">phone", "<=tablet") {
-  header.-fixed + .wrap-content {
-    padding-top: 100px;
-  }
-}
-</style>
+        *::before,
+        *,
+        *::after {
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        }
 
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        $clr-yellow: #FDD835;
+        $clr-blue: #2196F3;
+        $clr-green: #4CAF50;
+        $clr-orange: #FF9800;
+        $clr-red: #f44336;
+
+        img.emoji {
+            height: 1em;
+            width: 1em;
+            margin: 0 .05em 0 .1em;
+            vertical-align: -0.1em;
+        }
+
+        header {
+            border-bottom: 1px solid #f3f3f3;
+            padding: 1rem;
+
+            //fixed header
+            &.-fixed {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                background: white;
+                z-index: 1;
+            }
+
+            >* {
+                max-width: 1024px;
+                margin: 0 auto;
+            }
+        }
+
+        header.-fixed+.wrap-content {
+            padding-top: 60px;
+        }
+
+        .wrap-content {
+            overflow-y: auto;
+            min-height: calc(100vh - 64px);
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        article {
+            padding: 10px;
+
+            header {
+                border-bottom: 1px solid #f3f3f3;
+                padding: 1rem 0;
+            }
+
+            section.version {
+                margin: 1rem 0;
+
+                .header {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+
+                    .version-num {
+                        &.-planned {
+                            color: rgba(255, 255, 255, .3);
+                        }
+
+                        &.-labelled {
+                            display: inline-flex;
+                            padding: 0 4px;
+                            border: 2px solid rgba(255, 255, 255, .5);
+                            //color: white;
+                            background: transparent;
+                            border-radius: 5px;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        &.-deprecated {
+                            display: inline-flex;
+                            padding: 0 4px;
+                            border: 2px solid transparent;
+                            color: white;
+                            background: #4d4d4d;
+                            border-radius: 5px;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        &.-declined {
+                            display: inline-flex;
+                            padding: 0 4px;
+                            border: 2px solid rgba(255, 255, 255, .3);
+                            color: rgba(255, 255, 255, .5);
+                            background: transparent;
+                            border-radius: 5px;
+                            align-items: center;
+                            justify-content: center;
+                            text-decoration: line-through;
+                        }
+                    }
+
+                    .datetime {
+                        margin: 0 0 0 10px;
+                        color: rgba(255, 255, 255, .5);
+                    }
+
+                    >*:not(:first-child) {
+                        margin: 0 0 0 10px;
+                    }
+                }
+
+                .label,
+                .label-inline {
+                    display: inline-flex;
+                    padding: 4px 10px;
+                    margin: 20px 0 5px 0;
+                    border: 1px solid transparent;
+                    color: white;
+                    background: #bababa;
+                    border-radius: 9999px;
+                    align-items: center;
+                    justify-content: center;
+
+                    &.-s {
+                        padding: 2px 6px;
+                        font-size: 10pt;
+                    }
+
+                    &.-m {
+                        padding: 4px 10px;
+                        font-size: 12pt;
+                    }
+
+                    &.-l {
+                        padding: 6px 14px;
+                        font-size: 14pt;
+                    }
+
+                    &.-yellow {
+                        color: black;
+                        background: $clr-yellow;
+                    }
+
+                    &.-blue {
+                        color: white;
+                        background: $clr-blue;
+                    }
+
+                    &.-green {
+                        color: white;
+                        background: $clr-green;
+                    }
+
+                    &.-orange {
+                        color: white;
+                        background: $clr-orange;
+                    }
+
+                    &.-red {
+                        color: white;
+                        background: $clr-red;
+                    }
+
+                    &.-ghost {
+                        background: transparent;
+                        border: 2px solid #bababa;
+                        color: #bababa;
+                        font-weight: 600;
+
+                        &.-yellow {
+                            color: black;
+                            border-color: $clr-yellow;
+                        }
+
+                        &.-blue {
+                            color: $clr-blue;
+                            border-color: $clr-blue;
+                        }
+
+                        &.-green {
+                            color: $clr-green;
+                            border-color: $clr-green;
+                        }
+
+                        &.-orange {
+                            color: $clr-orange;
+                            border-color: $clr-orange;
+                        }
+
+                        &.-red {
+                            color: $clr-red;
+                            border-color: $clr-red;
+                        }
+                    }
+                }
+
+                .label-inline {
+                    padding: 2px 6px;
+                    font-size: 10pt;
+                    border-radius: 5px;
+                    margin: 0 5px 0 0;
+                }
+
+                ul,
+                ol {
+                    list-style-position: inside;
+
+                    //padding: 5px;
+                    li {
+                        display: flex;
+                        align-items: center;
+                        margin: 5px 0;
+                    }
+                }
+
+                dd {
+                    list-style-position: inside;
+
+                    dt {
+                        display: flex;
+                        align-items: center;
+                        margin: 5px 0;
+                    }
+                }
+
+                &.-declined {
+                    //display: inline-flex;
+                    padding: 0 4px;
+                    //border: 2px solid rgba(255,255,255,.3);
+                    opacity: .5;
+                    background: transparent;
+                    border-radius: 5px;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: line-through;
+                }
+            }
+        }
+
+        @include media(">phone", "<=tablet") {
+            header.-fixed+.wrap-content {
+                padding-top: 100px;
+            }
+        }
+    </style>
 {% endblock %}
 {% block js %}
 {% endblock %}
