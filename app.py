@@ -377,6 +377,21 @@ def activate_vault_miner():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+@app.route("/shop/activate/panictransfer", methods=["POST"])
+@login_required
+def activate_vault_miner():
+    # Query backend pod 
+    # Get pod (with label selectors) ip via k8s api first then get the state
+    ips = get_cc_ip(
+        userId=str(session["userdata"]["userId"]),
+        namespace=app_namespace
+    )
+    commandCenterIP = f"http://{ips[0]['ip']}/shop/activate/panictransfer"
+    data = requests.post(commandCenterIP)
+    state = data.json()
+    statusCode = data.status_code
+    return json.dumps(state), statusCode
+
 @app.route("/cc/<userID>/home")
 @login_required
 def home(userID):
