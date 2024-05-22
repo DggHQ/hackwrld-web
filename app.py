@@ -379,7 +379,7 @@ def activate_vault_miner():
 
 @app.route("/shop/activate/panictransfer", methods=["POST"])
 @login_required
-def activate_vault_miner():
+def activate_panic_transfer():
     # Query backend pod 
     # Get pod (with label selectors) ip via k8s api first then get the state
     ips = get_cc_ip(
