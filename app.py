@@ -18,7 +18,7 @@ from k8s import *
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "supersecretkey")
-app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=1440)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1440)
 csrf = CSRFProtect(app)
 callback_url_setting = os.getenv("CALLBACK_URL", "http://localhost:8888/callback")
 app_id_setting = os.getenv("APP_ID")
@@ -32,10 +32,6 @@ app_valkey_host = os.getenv("VALKEY_HOST", "valkey.hackwrld.svc")
 cc_image = os.getenv("CC_IMAGE", "ghcr.io/dgghq/hackwrld-client:main")
 
 
-
-
-
-#CHALLENGES = {}
 app_id = app_id_setting
 secret = app_secret_setting
 callback_url = urllib.parse.quote(callback_url_setting)
@@ -43,13 +39,13 @@ r = redis.Redis(host=app_valkey_host, port=6379, decode_responses=True)
 
 @app.before_request
 def check_under_maintenance():
-    if app_maintenance == "enabled":  #this flag can be anything, read from file,db or anything
+    if app_maintenance == "enabled":
         abort(503)
-    
+
 
 @app.errorhandler(503)
 def error_503(error):
-    return render_template("maintenance.html") 
+    return render_template("maintenance.html")
 
 
 def b64_encode(code_verifier, hashed_secret):
@@ -66,11 +62,13 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
 @app.route("/")
 def root():
     if 'userdata' in session:
-        return redirect(url_for("prepare", userID=str(session["userdata"]["userId"])))
+        return redirect(url_for("prepare",userID=str(session["userdata"]["userId"])))
     return redirect(url_for("auth"))
+
 
 @app.route("/auth")
 def auth():
@@ -80,7 +78,7 @@ def auth():
         k=43))
     code_challenge = b64_encode(code_verifier, hashed_secret)
     state = str(uuid.uuid4())
-    #CHALLENGES[state] = code_verifier
+    # CHALLENGES[state] = code_verifier
     r.set(state, code_verifier)
     url = f"https://www.destiny.gg/oauth/authorize?response_type=code&client_id={app_id}&redirect_uri={callback_url}&state={state}&code_challenge={code_challenge}"
     return redirect(url, code=302)
@@ -97,7 +95,7 @@ def logout():
 def callback():
     code = request.args.get("code")
     state = request.args.get("state")
-    code_verifier = r.get(state) #CHALLENGES[state]
+    code_verifier = r.get(state) # CHALLENGES[state]
     auth_url = f"https://www.destiny.gg/oauth/token?grant_type=authorization_code&code={code}&client_id={app_id}&redirect_uri={callback_url}&code_verifier={code_verifier}"
     auth_response = requests.get(auth_url)
     data = auth_response.json()
@@ -149,6 +147,7 @@ def create_cc(userID):
     )
     return json.dumps({"success": "created_deployment"}), 200
 
+
 @app.route("/cc/<userID>/prepare")
 @login_required
 def prepare(userID):
@@ -177,6 +176,7 @@ def state():
     state = requests.get(commandCenterIP).json()
     return json.dumps(state)
 
+
 @app.route("/upgrade/firewall", methods=["POST"])
 @login_required
 def upgrade_firewall():
@@ -191,6 +191,7 @@ def upgrade_firewall():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
 
 @app.route("/upgrade/firewall/max", methods=["POST"])
 @login_required
@@ -207,6 +208,7 @@ def upgrade_firewall_max():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/upgrade/scanner", methods=["POST"])
 @login_required
 def upgrade_scanner():
@@ -221,6 +223,7 @@ def upgrade_scanner():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
 
 @app.route("/upgrade/scanner/max", methods=["POST"])
 @login_required
@@ -237,6 +240,7 @@ def upgrade_scanner_max():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/upgrade/stealer", methods=["POST"])
 @login_required
 def upgrade_stealer():
@@ -251,6 +255,7 @@ def upgrade_stealer():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
 
 @app.route("/upgrade/stealer/max", methods=["POST"])
 @login_required
@@ -267,6 +272,7 @@ def upgrade_stealer_max():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/upgrade/miner", methods=["POST"])
 @login_required
 def upgrade_miner():
@@ -281,6 +287,7 @@ def upgrade_miner():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
 
 @app.route("/upgrade/miner/max", methods=["POST"])
 @login_required
@@ -313,6 +320,7 @@ def init_scan():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/steal", methods=["POST"])
 @login_required
 def init_steal():
@@ -332,6 +340,7 @@ def init_steal():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/vault/store", methods=["POST"])
 @login_required
 def store_vault():
@@ -346,6 +355,7 @@ def store_vault():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
 
 @app.route("/upgrade/vault", methods=["POST"])
 @login_required
@@ -362,6 +372,7 @@ def upgrade_vault():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/shop/activate/vaultminer", methods=["POST"])
 @login_required
 def activate_vault_miner():
@@ -376,6 +387,7 @@ def activate_vault_miner():
     state = data.json()
     statusCode = data.status_code
     return json.dumps(state), statusCode
+
 
 @app.route("/shop/activate/panictransfer", methods=["POST"])
 @login_required
@@ -392,6 +404,7 @@ def activate_panic_transfer():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/shop/activate/scanscrambler", methods=["POST"])
 @login_required
 def activate_scan_scrambler():
@@ -407,6 +420,7 @@ def activate_scan_scrambler():
     statusCode = data.status_code
     return json.dumps(state), statusCode
 
+
 @app.route("/cc/<userID>/home")
 @login_required
 def home(userID):
@@ -414,12 +428,14 @@ def home(userID):
         return "Error: Unauthorized User", 403
     return render_template("idx.html", userid=userID, nick=str(session["userdata"]["nick"]), websocket_url=app_websocket_url)
 
+
 @app.route("/cc/<userID>/info")
 @login_required
 def user_infos(userID):
     if str(session["userdata"]["userId"]) != userID:
         return "Error: Unauthorized User", 403
     return str(session["userdata"]), 200
+
 
 @app.route("/debug")
 def debug():
@@ -431,9 +447,11 @@ def previous_round():
     ts = r.get("ts")
     return render_template("leaderboard.html", ts=ts)
 
+
 @app.route("/help")
 def help():
     return render_template("help.html")
+
 
 @app.route("/changelog")
 def changelog():
