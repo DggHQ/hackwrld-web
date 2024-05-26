@@ -247,11 +247,31 @@
                             <tr>
                                 <td>Vault Miner</td>
                                 <td>
-                                    Mines 50% of your current vault's capacity directly to the vault. If the vault is full then it pauses and mined coins go to your "Coins" counter.
+                                    Mines 75% of your current vault's capacity directly to the vault. If the vault is full then it pauses and mined coins go to your "Coins" counter.
                                 </td>
                                 <td id="vaultminercost">0</td>
                                 <th>
                                     <a id="vaultminerenable" type="button" class="btn btn-lg btn-secondary">Activate</a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Panic Transfer</td>
+                                <td>Automatically transfers your coins to the vault when someone scans your command center.</td>
+                                <td id="panictransfercost">0</td>
+                                <th>
+                                    <a id="panictransferenable"
+                                       type="button"
+                                       class="btn btn-lg btn-secondary">Activate</a>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Scan Scrambler</td>
+                                <td>Sends fake cooldown times when scanned by other players.</td>
+                                <td id="scanscramblercost">0</td>
+                                <th>
+                                    <a id="scanscramblerenable"
+                                       type="button"
+                                       class="btn btn-lg btn-secondary">Activate</a>
                                 </th>
                             </tr>
                         </tbody>
@@ -989,6 +1009,81 @@
                 });
             });
 
+            // Handle panic transfer activation
+            $("#panictransferenable").on("click", function() {
+                // Activate panic transfer
+                $.ajax({
+                    url: '/shop/activate/panictransfer',
+                    type: 'POST',
+                    dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+                        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                        }
+                    },
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Handle panic transfer activation
+            $("#scanscramblerenable").on("click", function() {
+                // Activate panic transfer
+                $.ajax({
+                    url: '/shop/activate/scanscrambler',
+                    type: 'POST',
+                    dataType: 'json',
+                    beforeSend: function(xhr, settings) {
+                        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                        }
+                    },
+                    success: function(result) {
+                        var uuid = uuidv4()
+                        $('<p>').attr('id', uuid).attr('class', 'myevent').text(result.message).appendTo(".inner")
+                        $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                            $(this).remove();
+                        });
+                        $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                    },
+                    error: function(result) {
+                        console.log("Could not connect to backend.")
+                    },
+                    statusCode: {
+                        403: function(result) {
+                            var uuid = uuidv4();
+                            var response = ($.parseJSON(result.responseText));
+                            $('<p>').attr('id', uuid).attr('class', 'errorevent').text(response.message).appendTo(".inner")
+                            $("#" + uuid).delay(10000).fadeOut(5000, function() {
+                                $(this).remove();
+                            });
+                            $('.inner')[0].scrollTop = $('.inner')[0].scrollHeight;
+                        }
+                    }
+                });
+            });
+
+
             function stealFromTarget(targetId) {
                 $.ajax({
                     url: '/steal',
@@ -1135,6 +1230,7 @@
                         }
                     },
                     success: function(result) {
+                        var playerlevel = result.state.stealer.level + result.state.cryptoMiner.level + result.state.scanner.level + result.state.firewall.level
 
                         if (result.state.inventory.vaultMiner.enabled) {
                             $("[id=vaultminerenable]").prop("disabled", true);
@@ -1144,18 +1240,37 @@
                             $("[id=vaultminerenable]").text("Activate");
                         }
 
+                        if (result.state.inventory.panicTransfer.enabled) {
+                            $("[id=panictransferenable]").prop("disabled", true);
+                            $("[id=panictransferenable]").text("Active" + "(" + result.state.inventory.panicTransfer.amountLeft + ")");
+                        } else {
+                            $("[id=panictransferenable]").prop("disabled", false);
+                            $("[id=panictransferenable]").text("Activate");
+                        }
+
+                        if (result.state.inventory.scanScrambler.enabled) {
+                            $("[id=scanscramblerenable]").prop("disabled", true);
+                            $("[id=scanscramblerenable]").text("Active" + "(" + result.state.inventory.scanScrambler.amountLeft + ")");
+                        } else {
+                            $("[id=scanscramblerenable]").prop("disabled", false);
+                            $("[id=scanscramblerenable]").text("Activate");
+                        }
+
+
                         $('#fw').text(result.state.firewall.level)
                         $('#sc').text(result.state.scanner.level)
                         $('#mi').text(result.state.cryptoMiner.level)
                         $('#st').text(result.state.stealer.level)
                         $('#va').text(result.state.vault.level)
 
-                        $('#playerlevel').text(result.state.stealer.level + result.state.cryptoMiner.level + result.state.scanner.level + result.state.firewall.level)
+                        $('#playerlevel').text(playerlevel)
 
                         $('#ccid').text(result.state.id)
                         $('#funds').text(result.state.funds.amount)
                         $('#vault').text(result.state.vault.amount)
                         $('#vaultminercost').text((result.state.vault.capacity * 0.2).toFixed(1))
+                        $('#panictransfercost').text((playerlevel / 10).toFixed(2))
+                        $('#scanscramblercost').text((playerlevel / 5).toFixed(2))
                         $("#vacost").text("(" + (result.state.vault.capacity).toFixed(1) + ")")
                         $("#fwcost").text("(" + (result.state.firewall.level * 0.1).toFixed(1) + ")")
                         $("#sccost").text("(" + (result.state.scanner.level * 0.1).toFixed(1) + ")")
